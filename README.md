@@ -27,7 +27,7 @@ _not in any particular order_
 - [ ] Audio Assets
 - [ ] Lighting
 - [ ] Animations
-- [ ]
+- [ ] ...
 
 ## Overview of Gameplay <a name="overview"/>
 - The game will be about a guy who will be escaping from prison. There will be clues around like an escape room game. There will also be guards you will need to avoid. You have to sneak around and go through obstacles. There will be different levels leading to the finale which will be you escaping the prison successfully. This game will essentially be a stealth game. We might change the theme around. 
