@@ -21,8 +21,10 @@
 ## To-do List <a name="todolist"/>
 _not in any particular order_
 - [X] Initialized an Empty Unity Project and Pushed it to Github
+- [X] Controls
+- [X] First-Person Camera
+- [ ] Third-Person Camera (?) 
 - [ ] Frameworks (?)
-- [ ] Controls/Camera Movements
 - [ ] Art Assets
 - [ ] Audio Assets
 - [ ] Lighting
@@ -83,4 +85,4 @@ _not in any particular order_
 
 
 ## Viewpoint <a name="viewpoint"/>
-- 1st person or 3rd
+- **First** or Third person
