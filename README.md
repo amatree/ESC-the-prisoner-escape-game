@@ -19,7 +19,14 @@
 
 
 ## To-do List <a name="todolist"/>
+_not in any particular order_
 - [X] Initialized an Empty Unity Project and Pushed it to Github
+- [ ] Frameworks (?)
+- [ ] Controls/Camera Movements
+- [ ] Art Assets
+- [ ] Audio Assets
+- [ ] Lighting
+- [ ] Animations
 - [ ] ...
 
 ## Overview of Gameplay <a name="overview"/>
