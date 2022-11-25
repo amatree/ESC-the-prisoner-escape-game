@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     public Rigidbody rigidBody;
     [Range(1f, 10f)] public float movementSpeed = 5f;
     [Range(1f, 15f)] public float sprintSpeed = 10f;
-    [Range(3f, 10f)] public float jumpHeight = 3f;
+    [Range(1f, 10f)] public float jumpHeight = 3f;
     public bool enableDoubleJump = true;
 
     [Header("Animation")]
@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
     [Range(0f, 1f)] public float frictionMultiplier = 0.7f;
     [Range(0f, 1f)] public float airAccelerationMultiplier = 0.7f;
     [Range(0f, 2f)] public float airFrictionMultiplier = 2.0f;
-    [Range(0f, 1f)] public float airDrag = 0.5f;
+    [Range(0.01f, 1f)] public float airDrag = 0.5f;
 
     [Header("Other")]
     public Transform groundCheck;
