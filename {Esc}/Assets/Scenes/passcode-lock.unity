@@ -532,37 +532,5 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerPrefab
       objectReference: {fileID: 0}
-    - target: {fileID: 4802376506442686302, guid: 6bc92e72d1db0f34a92ac5a59ed2f697, type: 3}
-      propertyPath: airDrag
-      value: 0.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 4802376506442686302, guid: 6bc92e72d1db0f34a92ac5a59ed2f697, type: 3}
-      propertyPath: sprintSpeed
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 4802376506442686302, guid: 6bc92e72d1db0f34a92ac5a59ed2f697, type: 3}
-      propertyPath: groundDistace
-      value: 0.02
-      objectReference: {fileID: 0}
-    - target: {fileID: 4802376506442686302, guid: 6bc92e72d1db0f34a92ac5a59ed2f697, type: 3}
-      propertyPath: movementSpeed
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 4802376506442686302, guid: 6bc92e72d1db0f34a92ac5a59ed2f697, type: 3}
-      propertyPath: mouseSensitivity
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4802376506442686302, guid: 6bc92e72d1db0f34a92ac5a59ed2f697, type: 3}
-      propertyPath: groundMask.m_Bits
-      value: 576
-      objectReference: {fileID: 0}
-    - target: {fileID: 4802376506442686302, guid: 6bc92e72d1db0f34a92ac5a59ed2f697, type: 3}
-      propertyPath: airFrictionMultiplier
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4802376507606018864, guid: 6bc92e72d1db0f34a92ac5a59ed2f697, type: 3}
-      propertyPath: m_TagString
-      value: MainCamera
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6bc92e72d1db0f34a92ac5a59ed2f697, type: 3}

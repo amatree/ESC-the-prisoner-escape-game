@@ -65,24 +65,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigidBody: {fileID: 4802376506442686303}
-  movementSpeed: 5
-  sprintSpeed: 10
-  jumpHeight: 3
+  movementSpeed: 8
+  sprintSpeed: 12
+  jumpHeight: 2
   enableDoubleJump: 1
   playerAnimation: {fileID: 4802376506463435199}
   playerCamera: {fileID: 4802376507606018865}
-  mouseSensitivity: 1
+  mouseSensitivity: 4
   gravity: -9.81
   accelerationMultiplier: 2
   frictionMultiplier: 0.7
   airAccelerationMultiplier: 0.7
   airFrictionMultiplier: 2
-  airDrag: 0.5
+  airDrag: 0.9
   groundCheck: {fileID: 4802376507317189501}
   groundMask:
     serializedVersion: 2
-    m_Bits: 64
-  groundDistace: 0.02
+    m_Bits: 576
+  groundDistace: 0.03
   sprintKey: 304
   jumpKey: 32
   isGrounded: 0
@@ -182,7 +182,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5000001
+  m_Radius: 0.6
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}

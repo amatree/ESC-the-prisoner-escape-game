@@ -46,6 +46,8 @@ public class PlayerController : MonoBehaviour
     int jumpCount;
     bool isJumpKeyReleased;
 
+    int collisionContactCount = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -67,6 +69,8 @@ public class PlayerController : MonoBehaviour
         // state checks
         isSprinting = Input.GetKey(sprintKey);
         finalSpeed = isSprinting ? sprintSpeed : movementSpeed;
+        if (collisionContactCount > 1 && !isGrounded)
+            finalSpeed = 0f;
 
         RaycastHit ray = RayCast(Vector3.down);
         Debug.DrawRay(transform.position, new Vector3(0, -10f, 0), Color.cyan);
@@ -129,11 +133,22 @@ public class PlayerController : MonoBehaviour
         return hit;
     }
 
+    void OnCollisionEnter(Collision collisionInfo)
+    {
+        // print(collisionInfo.contactCount);
+    }
+
     void OnCollisionStay(Collision collision)
     {
+        // collisionContactCount = collision.contacts.Length;
         if (collision.gameObject.layer == groundMask)
         {
             //isGrounded = true;
         }
+        foreach (ContactPoint contact in collision.contacts)
+        {
+            Debug.DrawRay(contact.point, contact.normal * 10, Color.white);
+        }
+        // print(collision.contacts.Length);
     }
 }
