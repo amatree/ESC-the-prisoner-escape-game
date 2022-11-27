@@ -50,6 +50,10 @@ public class DaylightCycle : MonoBehaviour
     List<int> knuckles = new List<int>{1, 3, 5, 7, 8, 10, 12};
     List<int> grooves = new List<int>{4, 6, 9, 11};
 
+    void Awake()
+    {
+        EditorTestStarted = false;
+    }
 
     // Start is called before the first frame update
     void Start()

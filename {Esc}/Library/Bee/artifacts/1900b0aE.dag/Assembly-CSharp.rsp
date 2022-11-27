@@ -368,8 +368,11 @@
 "Assets/Scripts/Enums.cs"
 "Assets/Scripts/Flashlight.cs"
 "Assets/Scripts/Footstep.cs"
+"Assets/Scripts/HUD/HUDSettings.cs"
+"Assets/Scripts/Keypad.cs"
 "Assets/Scripts/MoonRotation.cs"
 "Assets/Scripts/PlayerController.cs"
+"Assets/Scripts/PlayerInteraction.cs"
 -langversion:9.0
 
 /deterministic
