@@ -1,6 +1,6 @@
 # CS583-3D-Game-Project
 
-### Due date: **Mon, Nov 28th 2022**
+### Due date: **11:59 PM Mon, Dec 12th 2022**
 
 
 - [To-do List](#todolist)
