@@ -183,7 +183,7 @@ public class Keypad : MonoBehaviour
             isMouseButton0Hold = true;
             yield return null;
         }
-        playerController.PlayFX(keypadSoundEffects.KeypadClickReleaseSFX, 0.3f);
+        playerController.PlayFX(keypadSoundEffects.KeypadClickReleaseSFX, 0.4f);
         keypadMeshRenderer.material = keypadMaterials.KeypadDefault;
         isMouseButton0Hold = false;
         yield break;

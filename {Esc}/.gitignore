@@ -58,6 +58,9 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+# User Settings
+/UserSettings/
+
 # Imported packages
 /Assets/PBR Ground Materials #1 [Dirt& Grass]/
 /Assets/SciFi Warehouse Kit/

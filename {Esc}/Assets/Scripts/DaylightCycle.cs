@@ -14,6 +14,8 @@ public class DaylightCycle : MonoBehaviour
     public bool RandomStartTime = false;
     private float timeRate;
     public Vector3 Noon = new Vector3(90.0f, 0.0f, 0.0f);
+    [ReadOnly] public bool isInControl = true;
+    [ReadOnly] public bool isStopped = false;
 
     [Header("Date & Time")]
     public bool UseSystemTime = false;
@@ -76,55 +78,77 @@ public class DaylightCycle : MonoBehaviour
         time = StartTime;
 
         RenderSettings.fog = EnableFog;
-        
     }
 
     // Update is called once per frame
     void Update()
     {
-        // time increment
-        if (!EditorTestStarted)
+        if (!isStopped)
         {
-            time += timeRate * Time.deltaTime;
-            time = time >= 1.0f ? IncrementDay() : time;
+            // time increment
+            if (!EditorTestStarted || isInControl)
+            {
+                time += timeRate * Time.deltaTime;
+                time = time >= 1.0f ? IncrementDay() : time;
+            }
+            GetCurrentTime();
+            IsLeapYear = DateTime.IsLeapYear(Year);
+
+            // fog
+            RenderSettings.fogDensity = MaximumFogDensity * FogDensity.Evaluate(time);
+
+            // light rotation
+            Sun.transform.eulerAngles = (time - 0.25f) * Noon * 4.0f;
+            Moon.transform.eulerAngles = (time - 0.75f) * Noon * 4.0f;
+
+            // light intensity
+            Sun.intensity = SunIntensity.Evaluate(time);
+            Moon.intensity = MoonIntensity.Evaluate(time);
+
+            // light color
+            Sun.color = SunColor.Evaluate(time);
+            Moon.color = MoonColor.Evaluate(time);
+
+            // toggle sun
+            if (Sun.intensity == 0 && Sun.gameObject.activeInHierarchy)
+                Sun.gameObject.SetActive(false);
+            else if (Sun.intensity > 0 && !Sun.gameObject.activeInHierarchy)
+                Sun.gameObject.SetActive(true);
+
+            // toggle moon
+            if (Moon.intensity == 0 && Moon.gameObject.activeInHierarchy)
+                Moon.gameObject.SetActive(false);
+            else if (Moon.intensity > 0 && !Moon.gameObject.activeInHierarchy)
+                Moon.gameObject.SetActive(true);
+
+            // lighting & reflections intensity
+            RenderSettings.ambientIntensity = LightingIntensityMultiplier.Evaluate(time);
+            RenderSettings.reflectionIntensity = ReflectionsIntensityMultiplier.Evaluate(time);
+
+            // skybox 
+            RenderSettings.skybox.SetColor("_SkyTint", SkyColor.Evaluate(time));
+            RenderSettings.skybox.SetColor("_GroundColor", HorizonColor.Evaluate(time));
         }
-        GetCurrentTime();
-        IsLeapYear = DateTime.IsLeapYear(Year);
+    }
 
-        // fog
-        RenderSettings.fogDensity = MaximumFogDensity * FogDensity.Evaluate(time);
+    public void Stop()
+    {
+        isStopped = true;
+    }
 
-        // light rotation
-        Sun.transform.eulerAngles = (time - 0.25f) * Noon * 4.0f;
-        Moon.transform.eulerAngles = (time - 0.75f) * Noon * 4.0f;
+    public void Continue()
+    {
+        isStopped = false;
+    }
 
-        // light intensity
-        Sun.intensity = SunIntensity.Evaluate(time);
-        Moon.intensity = MoonIntensity.Evaluate(time);
+    public void ReturnControl()
+    {
+        isInControl = true;
+    }
 
-        // light color
-        Sun.color = SunColor.Evaluate(time);
-        Moon.color = MoonColor.Evaluate(time);
-
-        // toggle sun
-        if (Sun.intensity == 0 && Sun.gameObject.activeInHierarchy)
-            Sun.gameObject.SetActive(false);
-        else if (Sun.intensity > 0 && !Sun.gameObject.activeInHierarchy)
-            Sun.gameObject.SetActive(true);
-
-        // toggle moon
-        if (Moon.intensity == 0 && Moon.gameObject.activeInHierarchy)
-            Moon.gameObject.SetActive(false);
-        else if (Moon.intensity > 0 && !Moon.gameObject.activeInHierarchy)
-            Moon.gameObject.SetActive(true);
-
-        // lighting & reflections intensity
-        RenderSettings.ambientIntensity = LightingIntensityMultiplier.Evaluate(time);
-        RenderSettings.reflectionIntensity = ReflectionsIntensityMultiplier.Evaluate(time);
-
-        // skybox 
-        RenderSettings.skybox.SetColor("_SkyTint", SkyColor.Evaluate(time));
-        RenderSettings.skybox.SetColor("_GroundColor", HorizonColor.Evaluate(time));
+    public void TakeControl()
+    {
+        isInControl = false;
     }
 
     public void Reset() {
@@ -132,6 +156,7 @@ public class DaylightCycle : MonoBehaviour
         {
             this.Start();
             EditorTestStarted = false;
+            isInControl = true;
             print("Editor Test stopped!");
         }
     }
