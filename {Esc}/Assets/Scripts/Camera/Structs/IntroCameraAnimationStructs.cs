@@ -12,5 +12,6 @@ namespace IntroCameraAnimationStructs
         public Transform optionView02;
 
         public Transform enterGameView01;
+        public Transform enterGameView02;
     }
 }

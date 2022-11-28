@@ -4,18 +4,15 @@ using UnityEngine;
 using TMPro;
 using UIElements;
 
-public class IntroUI : MonoBehaviour {
-    public MenuUIButtons UIButtons;
+public class OptionsUI : MonoBehaviour {
+    public Animator optButtonAnimator;
+    public OptionsUIButtons UIButtons;
     [ReadOnly] public GameObject currentHoveredElement;
     [ReadOnly] public TMP_Text currentHoveredBtnText;
 
-    [Header("Options UI")]
-    [SerializeField]
-    public OptionsUI optionsUI;
-
     [Header("Intro Camera Animation")]
     [SerializeField]
-    public IntroCameraAnimation introCameraAnimation;    
+    public IntroCameraAnimation introCameraAnimation;
     
     // Start is called before the first frame update
     void Start() {
@@ -27,9 +24,9 @@ public class IntroUI : MonoBehaviour {
         
     }
 
-    public void OptionsButtonClick()
+    public void BackButtonClick()
     {
-        introCameraAnimation.AnimateOptionsMenu();
+        introCameraAnimation.AnimateMainMenu();
     }
 
     public void ToggleButtonHoverOn(int buttonID)

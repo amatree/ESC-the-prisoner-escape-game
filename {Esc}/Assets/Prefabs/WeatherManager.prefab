@@ -41,24 +41,26 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1675377882123960829}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c8fd2f9ec428d824c9c232a918bc3580, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   EditorTestStarted: 1
-  time: 0.292
+  time: 0.015
   FullDayLength: 60
   UseRealDayLength: 0
   StartTime: 0.6271477
   RandomStartTime: 0
   Noon: {x: 90, y: 0, z: 0}
+  isInControl: 1
+  isStopped: 0
   UseSystemTime: 1
   Day: 25
   Month: 11
   Year: 2022
   IsLeapYear: 0
-  CurrentTime: 07:00:28.799
+  CurrentTime: 00:21:35.999
   SkyColor:
     serializedVersion: 2
     key0: {r: 0.20784314, g: 0.23529412, b: 0.26666668, a: 1}
@@ -118,7 +120,7 @@ MonoBehaviour:
     m_NumColorKeys: 6
     m_NumAlphaKeys: 2
   EnableFog: 1
-  MaximumFogDensity: 0.02
+  MaximumFogDensity: 0.01
   FogDensity:
     serializedVersion: 2
     m_Curve:
@@ -404,7 +406,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1675377883442437616}
-  m_LocalRotation: {x: -0.9913076, y: -0, z: -0, w: 0.13156435}
+  m_LocalRotation: {x: -0.7396311, y: -0, z: -0, w: -0.6730125}
   m_LocalPosition: {x: -505.2351, y: 1000, z: 699.8852}
   m_LocalScale: {x: 0.70833, y: 0.7083299, z: 0.7083299}
   m_ConstrainProportionsScale: 0
@@ -424,7 +426,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 0.07450981, g: 0.09411766, b: 0.38431376, a: 1}
-  m_Intensity: 0.00064247847
+  m_Intensity: 0.6422003
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -498,7 +500,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1675377883515528930}
-  m_LocalRotation: {x: 0.13156435, y: -0, z: -0, w: 0.9913076}
+  m_LocalRotation: {x: -0.6730125, y: -0, z: 0, w: 0.7396311}
   m_LocalPosition: {x: -505.2351, y: 1000, z: 699.8852}
   m_LocalScale: {x: 0.70833, y: 0.7083299, z: 0.7083299}
   m_ConstrainProportionsScale: 0
@@ -517,8 +519,8 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 0.9974798, g: 0.8952288, b: 0.40891218, a: 1}
-  m_Intensity: 0.67262924
+  m_Color: {r: 1, g: 0.8666667, b: 0.2509804, a: 1}
+  m_Intensity: 0.03056484
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
