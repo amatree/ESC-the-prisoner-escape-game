@@ -62,9 +62,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   keypadName: Room#001
   passcode: 1234
-  keepCorrectPasscode: 1
+  accessKey: 101
+  keypadTooltipText: Press {0} to use Keypad
+  correctTooltipText: Access GRANTED!!!
+  errorTooltipText: Wrong passcode please try again or press ESC to exit.
+  keepCorrectPasscode: 0
   inputPasscode: 
-  isUnlocked: 0
+  wasUnlocked: 0
+  keypadDownTime: 2
+  keypadMeshRenderer: {fileID: 2285326133335460422}
+  keypadMaterials:
+    KeypadDefault: {fileID: 2100000, guid: ed12086003fe9864ba6ba40b46340e1d, type: 2}
+    KeypadClicked000: {fileID: 2100000, guid: 6f1884574184f7b47be42e1a9b628332, type: 2}
+    KeypadClicked001: {fileID: 2100000, guid: e58c81179764d39438b85fb899cbd018, type: 2}
+    KeypadClicked002: {fileID: 2100000, guid: c22dd3970abf7514d9643760b61e07e8, type: 2}
+    KeypadClicked003: {fileID: 2100000, guid: 14bd7332c0115f44ea67cde5425389d2, type: 2}
+    KeypadClicked004: {fileID: 2100000, guid: 57ef83aff27915847836f3000967d288, type: 2}
+    KeypadClicked005: {fileID: 2100000, guid: e82544c5458a78944a28f3e384a9ccab, type: 2}
+    KeypadClicked006: {fileID: 2100000, guid: 31e79ccc23ab48d47b01281c7ae8802c, type: 2}
+    KeypadClicked007: {fileID: 2100000, guid: aaa058fa449e1c3458e6c7ae20463c5d, type: 2}
+    KeypadClicked008: {fileID: 2100000, guid: 9d081edcc34c20d4aaa6a691c0cd27ac, type: 2}
+    KeypadClicked009: {fileID: 2100000, guid: 89df64304a4065a42a4f2bccd1a5a19b, type: 2}
+  keypadSoundEffects:
+    KeypadClickHoldSFX: {fileID: 8300000, guid: 25bd8e2ea66a25640a9dc37297e35972, type: 3}
+    KeypadClickReleaseSFX: {fileID: 8300000, guid: bc8d321cb247393419ef50fa7c1c7e91, type: 3}
+    CorrectSFX: {fileID: 8300000, guid: c061258629c4251458479fd69e6eeadc, type: 3}
+    IncorrectSFX: {fileID: 8300000, guid: a218a702531d56247a6835d18ecb1892, type: 3}
   playerInteraction: {fileID: 0}
   hudSettings: {fileID: 0}
   isLookedAt: 0
@@ -130,7 +153,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31b868fa69837e54ead3ee9673f2073b, type: 2}
+  - {fileID: 2100000, guid: ed12086003fe9864ba6ba40b46340e1d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -213,7 +236,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31b868fa69837e54ead3ee9673f2073b, type: 2}
+  - {fileID: 2100000, guid: ed12086003fe9864ba6ba40b46340e1d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

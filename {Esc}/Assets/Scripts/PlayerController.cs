@@ -54,6 +54,8 @@ public class PlayerController : MonoBehaviour
     bool hasCameraControl = true;
     bool hasAllControl = true;
 
+    AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -62,6 +64,9 @@ public class PlayerController : MonoBehaviour
         rigidBody.drag = 0f;
         rigidBody.centerOfMass = Vector3.zero;
         rigidBody.inertiaTensor = Vector3.zero;
+
+        audioSource = GetComponent<AudioSource>();
+
         playerCamera = playerCamera == null ? GetComponentInChildren<Camera>() : playerCamera;
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -208,4 +213,21 @@ public class PlayerController : MonoBehaviour
         }
         // print(collision.contacts.Length);
     }
+
+    public void PlayFX(AudioClip clip, float volume = 1f, bool resetVolumeAfter = true)
+    {
+        StartCoroutine(PlayFX_IE(clip, volume, resetVolumeAfter));
+    }
+
+    IEnumerator PlayFX_IE(AudioClip clip, float volume = 1f, bool waitTilFinish = false)
+    {
+        float prev_vol = this.audioSource.volume;
+        this.audioSource.volume = Mathf.Clamp01(volume);
+        this.audioSource.clip = clip;
+        this.audioSource.Play();
+        while (waitTilFinish && this.audioSource.isPlaying)
+            yield return null;
+        this.audioSource.volume = prev_vol;
+    }
+    
 }

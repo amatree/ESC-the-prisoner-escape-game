@@ -58,5 +58,6 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
-# Unity Temp files
-Temp/
+# Imported packages
+/Assets/PBR Ground Materials #1 [Dirt& Grass]/
+/Assets/SciFi Warehouse Kit/
