@@ -47,9 +47,9 @@ public class IntroCameraAnimation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (skippable && Input.GetKeyDown(KeyCode.Escape))
+        if (!isSkipped && skippable && Input.GetKeyDown(KeyCode.Escape))
         {
-            isSkipped = true;
+            StartCoroutine(SkipAnimation());
         }
     }
 
@@ -66,6 +66,13 @@ public class IntroCameraAnimation : MonoBehaviour
     public void AnimateOptionsMenu()
     {
         StartCoroutine(InitOptionsView());
+    }
+
+    public IEnumerator SkipAnimation(float delay = 0.1f)
+    {
+        isSkipped = true;
+        yield return new WaitForSeconds(delay);
+        isSkipped = false;
     }
 
 
@@ -118,7 +125,7 @@ public class IntroCameraAnimation : MonoBehaviour
             objectToMove.rotation = Quaternion.Lerp(objectToMove.rotation, target.rotation, (elapsedTime*0.1f / seconds));
             objectToMove.position = Vector3.Lerp(startingPos, target.position, (elapsedTime / seconds));
             elapsedTime += Time.deltaTime;
-            yield return new WaitForEndOfFrame();
+            yield return null;
         }
         objectToMove.position = target.position;
         objectToMove.rotation = target.rotation;

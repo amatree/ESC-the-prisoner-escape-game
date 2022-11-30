@@ -2,7 +2,7 @@
 
 ### Due date: **11:59 PM Mon, Dec 12th 2022**
 
-
+- [Required Packages](#packages)
 - [To-do List](#todolist)
 
 #### Project Designs
@@ -40,6 +40,10 @@ _not in any particular order_
 - WASD to move left, right, forward, and back
 - Space to jump 
 - E to open doors and grab items
+
+
+## Required Packages (not included with repository) <a name="packages"/>
+- [Sci-Fi Construction Kit (Modular)](https://assetstore.unity.com/packages/3d/environments/sci-fi/sci-fi-construction-kit-modular-159280) (FREE)
 
 
 ## Art Assets Needed <a name="art-assets"/>
