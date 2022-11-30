@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.IO;
@@ -6,9 +8,12 @@ using System.IO;
 public class GameSettingsManager
 {
     public float audioVolume = 0.3f;
-    public float mouseSensitivity = 3.0f;
+    public float mouseSensitivity = 5.0f;
 
     private string dataFile;
+
+    [NonSerialized]
+    public bool justSaved = false;
 
     public GameSettingsManager(string dataFile)
     {
@@ -39,5 +44,12 @@ public class GameSettingsManager
     public static void SaveData(string dataFile, object data)
     {
         File.WriteAllText(dataFile, JsonUtility.ToJson(data));
+    }
+
+    IEnumerator UpdateSaveStatus(float duration = 0.1f)
+    {
+        justSaved = true;
+        yield return new WaitForSeconds(duration);
+        justSaved = false;
     }
 }

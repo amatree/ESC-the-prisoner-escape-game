@@ -8,11 +8,19 @@ public class GameConfiguration : MonoBehaviour
     [ReadOnly] public string mainDataFile = "";
     [SerializeField] [ReadOnly] public GameSettingsManager gameDataManager;
 
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] public PlayerController playerController;
+
+    void Awake()
     {
         mainDataFile = Application.persistentDataPath + "/config.dat";
         gameDataManager = new GameSettingsManager(mainDataFile);
+        UpdateSettings();
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+
     }
 
     // Update is called once per frame
@@ -21,10 +29,20 @@ public class GameConfiguration : MonoBehaviour
         
     }
 
+    
     public void StartGame()
     {
         string sceneName = SceneManager.GetActiveScene().name;
         if (sceneName != "Game")
             SceneManager.LoadScene(1);
+    }
+
+    public void UpdateSettings()
+    {
+        if (playerController is not null)
+        {
+            playerController.audioSource.volume = gameDataManager.audioVolume;
+            playerController.mouseSensitivity = gameDataManager.mouseSensitivity;
+        }
     }
 }

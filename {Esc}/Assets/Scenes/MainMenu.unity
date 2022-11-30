@@ -14251,6 +14251,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6954531691785998512, guid: cf8443763fc34314490f8a3e2f94dd37, type: 3}
   m_PrefabInstance: {fileID: 1012158366}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1016604447 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2677080407598849610, guid: db3dc989082d8354f9688c4a4353e399, type: 3}
+  m_PrefabInstance: {fileID: 2677080407911742137}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1027803606
 GameObject:
   m_ObjectHideFlags: 0
@@ -30082,6 +30087,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2677080406695337606, guid: db3dc989082d8354f9688c4a4353e399, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1016604447}
+    - target: {fileID: 2677080406695337606, guid: db3dc989082d8354f9688c4a4353e399, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
     - target: {fileID: 2677080407598849610, guid: db3dc989082d8354f9688c4a4353e399, type: 3}
       propertyPath: m_IsActive
       value: 1

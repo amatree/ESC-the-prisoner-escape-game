@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Camera")]
     public Camera playerCamera;
-    [Range(0f, 50f)] public float mouseSensitivity = 3f;
+    [Range(0f, 50f)] public float mouseSensitivity = 5f;
 
     [Header("Physics")]
     public float gravity = Physics.gravity.y;
@@ -28,12 +28,16 @@ public class PlayerController : MonoBehaviour
     [Range(0f, 2f)] public float airFrictionMultiplier = 2.0f;
     [Range(0.01f, 1f)] public float airDrag = 0.5f;
 
+    [Header("Audio")]
+    public AudioSource audioSource;
+
     [Header("Other")]
     public Transform groundCheck;
     public LayerMask groundMask;
     public float groundDistace = 0.03f;
     public KeyCode sprintKey = KeyCode.LeftShift;
     public KeyCode jumpKey = KeyCode.Space;
+    public GameConfiguration gameConfiguration;
 
     float mouseX;
     float prev_mouseX;
@@ -53,8 +57,6 @@ public class PlayerController : MonoBehaviour
 
     bool hasCameraControl = true;
     bool hasAllControl = true;
-
-    AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
@@ -93,9 +95,9 @@ public class PlayerController : MonoBehaviour
             isGrounded = Physics.CheckSphere(groundCheck.position, groundDistace, groundMask);
 
             // rotation
-            mouseX += Input.GetAxis("Mouse X") * mouseSensitivity * 100f * Time.fixedDeltaTime;
+            mouseX += Input.GetAxis("Mouse X") * mouseSensitivity * 20f * Time.fixedDeltaTime;
             mouseX = mouseX % 360;
-            mouseY += Input.GetAxis("Mouse Y") * mouseSensitivity * 100f * Time.fixedDeltaTime;
+            mouseY += Input.GetAxis("Mouse Y") * mouseSensitivity * 20f * Time.fixedDeltaTime;
             mouseY = Mathf.Clamp(mouseY, -90f, 90f);
 
             if (mouseX - prev_mouseX > 30f)

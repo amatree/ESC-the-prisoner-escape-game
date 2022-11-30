@@ -489,13 +489,14 @@ MonoBehaviour:
   enableDoubleJump: 1
   playerAnimation: {fileID: 4802376506463435199}
   playerCamera: {fileID: 4802376507606018865}
-  mouseSensitivity: 3
+  mouseSensitivity: 5
   gravity: -9.81
   accelerationMultiplier: 2
   frictionMultiplier: 0.7
   airAccelerationMultiplier: 0.7
   airFrictionMultiplier: 2
   airDrag: 0.9
+  audioSource: {fileID: 0}
   groundCheck: {fileID: 4802376507317189501}
   groundMask:
     serializedVersion: 2
@@ -503,6 +504,7 @@ MonoBehaviour:
   groundDistace: 0.1
   sprintKey: 304
   jumpKey: 32
+  gameConfiguration: {fileID: 0}
   isGrounded: 0
   isSprinting: 0
 --- !u!114 &430381140

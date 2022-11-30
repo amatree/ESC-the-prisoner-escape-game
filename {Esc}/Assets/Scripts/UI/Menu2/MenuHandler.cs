@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class MenuHandler : MonoBehaviour
 {
     public KeyCode pauseMenuAccess = KeyCode.Escape;
+    public GameConfiguration gameConfiguration;
     public GameObject mainMenuUI;
     [ReadOnly] public Camera menuCamera;
     [ReadOnly] public Camera mainCamera;
@@ -46,6 +47,9 @@ public class MenuHandler : MonoBehaviour
             else if (b.name == "MainMenuButton")
                 b.onClick.AddListener(ReturnToMainMenu);
         }
+
+        if (gameConfiguration is null)
+            gameConfiguration = transform.GetComponentInChildren<GameConfiguration>();
 
         mainMenuUI.SetActive(false);
 
@@ -86,6 +90,7 @@ public class MenuHandler : MonoBehaviour
 
     public void ContinueGame()
     {
+        gameConfiguration.UpdateSettings();
         menuCamera.enabled = false;
         mainCamera.enabled = true;
         mainMenuUI.SetActive(false);
