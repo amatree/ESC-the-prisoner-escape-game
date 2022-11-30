@@ -10,7 +10,7 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - PostProcessing
   - Water
   - UI
   - 
@@ -18,7 +18,7 @@ TagManager:
   - Tools
   - Ground
   - 
-  - 
+  - NoPostProcessing
   - 
   - 
   - 
