@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     [Range(1f, 10f)] public float movementSpeed = 5f;
     [Range(1f, 15f)] public float sprintSpeed = 10f;
     [Range(1f, 10f)] public float jumpHeight = 3f;
-    public bool enableDoubleJump = true;
+    [Tooltip("Disabled cuz it broke animation :3")] [ReadOnly] public bool enableDoubleJump = false;
 
     [Header("Animation")]
     public Animator playerAnimation;
@@ -43,20 +43,21 @@ public class PlayerController : MonoBehaviour
     float prev_mouseX;
     float mouseY;
 
-    public float finalSpeed;
-    float verticalAxis;
-    float horizontalAxis;
+    [ReadOnly] public float finalSpeed;
+    [ReadOnly] public float verticalAxis;
+    [ReadOnly] public float horizontalAxis;
 
     public bool isGrounded;
     public bool isSprinting;
 
-    int jumpCount;
-    bool isJumpKeyReleased;
+    [ReadOnly] public int jumpCount;
+    [ReadOnly] public bool isJumpKeyPressed;
+    [ReadOnly] public bool isJumpKeyReleased;
 
     int collisionContactCount = 0;
 
-    bool hasCameraControl = true;
-    bool hasAllControl = true;
+    public bool hasCameraControl = true;
+    public bool hasAllControl = true;
 
     // Start is called before the first frame update
     void Start()
@@ -120,30 +121,38 @@ public class PlayerController : MonoBehaviour
                 rigidBody.velocity = new Vector3(0, rigidBody.velocity.y, 0);
             } else
             {
-                verticalAxis = Input.GetAxis("Vertical") * finalSpeed * 1000f * Time.fixedDeltaTime;
-                horizontalAxis = Input.GetAxis("Horizontal") * finalSpeed * 1000f * Time.fixedDeltaTime;
-				if (verticalAxis + horizontalAxis == 0)
+                verticalAxis = Input.GetAxisRaw("Vertical") * finalSpeed * 1000f * Time.fixedDeltaTime;
+                horizontalAxis = Input.GetAxisRaw("Horizontal") * finalSpeed * 1000f * Time.fixedDeltaTime;
+				if (verticalAxis == 0 && horizontalAxis == 0)
 					finalSpeed = 0f;
                 move = Vector3.ClampMagnitude(transform.right * horizontalAxis + transform.forward * verticalAxis, finalSpeed * 100f);
             }
 
             // double jump
-            if (jumpCount > 0 && jumpCount < 2 && enableDoubleJump && !isGrounded)
-            {
-                if (isJumpKeyReleased && Input.GetKey(jumpKey))
-                {
-                    AddForce(Vector3.up * Mathf.Sqrt(-2f * jumpHeight / gravity) * 6f, ForceMode.VelocityChange);
-                    jumpCount++;
-                }
-            }
-            if (isGrounded && jumpCount > 0)
-                jumpCount = 0;
-            isJumpKeyReleased = !Input.GetKey(jumpKey);
-            if (Input.GetKey(jumpKey) && isGrounded && jumpCount == 0)
-            {
-                AddForce(Vector3.up * Mathf.Sqrt(-2f * jumpHeight / gravity) * 6f, ForceMode.VelocityChange);
-                jumpCount++;
-            }
+            // if (jumpCount > 0 && jumpCount < 2 && enableDoubleJump && !isGrounded)
+            // {
+            //     if (isJumpKeyReleased && Input.GetKeyDown(jumpKey))
+            //     {
+            //         AddForce(Vector3.up * Mathf.Sqrt(-2f * jumpHeight / gravity) * 1.0f, ForceMode.VelocityChange);
+            //         jumpCount++;
+            //     }
+            // }
+            // if (isGrounded && jumpCount > 0)
+            //     jumpCount = 0;
+            // isJumpKeyReleased = !Input.GetKey(jumpKey);
+			// isJumpKeyPressed = Input.GetKeyDown(jumpKey);
+            // if (!isJumpKeyReleased && isGrounded && jumpCount == 0)
+            // {
+            //     AddForce(Vector3.up * Mathf.Sqrt(-2f * jumpHeight / gravity) * 1.0f, ForceMode.VelocityChange);
+            //     jumpCount++;
+            // }
+
+			// single jump
+			if (Input.GetKey(jumpKey) && isGrounded)
+			{
+				StartCoroutine(ToggleJump(jumpHeight + (move.magnitude / 320f)));
+			}
+
 
             // add moving force
             if (isGrounded && rigidBody.velocity.magnitude != 0)
@@ -159,6 +168,13 @@ public class PlayerController : MonoBehaviour
         // gravity
         rigidBody.AddForce(new Vector3(0, gravity, 0), ForceMode.Acceleration);
     }
+
+	IEnumerator ToggleJump(float jumpForceMultiplier = 3.0f, float delay = 0.1f)
+	{
+		if (!isGrounded)
+			yield return new WaitForSeconds(delay);
+		AddForce(Vector3.up * Mathf.Sqrt(-2f * jumpHeight / gravity) * jumpForceMultiplier, ForceMode.Impulse);
+	}
 
     void AddForce(Vector3 force, ForceMode mode, bool resetVelocity = true)
     {
