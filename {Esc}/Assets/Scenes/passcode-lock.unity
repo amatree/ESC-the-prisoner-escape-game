@@ -17,13 +17,13 @@ RenderSettings:
   m_Fog: 1
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0.0047754515
+  m_FogDensity: 0.0012369876
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 0.8393524
+  m_AmbientIntensity: 0.88466907
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.5647059, g: 0.5058824, b: 0.5058824, a: 1}
   m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
@@ -35,10 +35,10 @@ RenderSettings:
   m_DefaultReflectionMode: 0
   m_DefaultReflectionResolution: 128
   m_ReflectionBounces: 1
-  m_ReflectionIntensity: 0.8393524
+  m_ReflectionIntensity: 0.88466907
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 169490058}
-  m_IndirectSpecularColor: {r: 0.41027436, g: 0.45127463, b: 0.5019526, a: 0.8393524}
+  m_IndirectSpecularColor: {r: 0.14775172, g: 0.18094955, b: 0.22750686, a: 0.88466907}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -130,6 +130,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1044526970}
     m_Modifications:
+    - target: {fileID: 1675377882123960819, guid: 5f130ee154dbe9d4281ce419f8afc98c, type: 3}
+      propertyPath: time
+      value: 0.31
+      objectReference: {fileID: 0}
+    - target: {fileID: 1675377882123960819, guid: 5f130ee154dbe9d4281ce419f8afc98c, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1675377882123960819, guid: 5f130ee154dbe9d4281ce419f8afc98c, type: 3}
+      propertyPath: CurrentTime
+      value: 07:26:24.000
+      objectReference: {fileID: 0}
     - target: {fileID: 1675377882123960828, guid: 5f130ee154dbe9d4281ce419f8afc98c, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -177,6 +189,50 @@ PrefabInstance:
     - target: {fileID: 1675377882123960829, guid: 5f130ee154dbe9d4281ce419f8afc98c, type: 3}
       propertyPath: m_Name
       value: WeatherManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 1675377883442437616, guid: 5f130ee154dbe9d4281ce419f8afc98c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1675377883442437622, guid: 5f130ee154dbe9d4281ce419f8afc98c, type: 3}
+      propertyPath: m_Intensity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1675377883442437623, guid: 5f130ee154dbe9d4281ce419f8afc98c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.18738134
+      objectReference: {fileID: 0}
+    - target: {fileID: 1675377883442437623, guid: 5f130ee154dbe9d4281ce419f8afc98c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.9822872
+      objectReference: {fileID: 0}
+    - target: {fileID: 1675377883515528928, guid: 5f130ee154dbe9d4281ce419f8afc98c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9822872
+      objectReference: {fileID: 0}
+    - target: {fileID: 1675377883515528928, guid: 5f130ee154dbe9d4281ce419f8afc98c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.18738131
+      objectReference: {fileID: 0}
+    - target: {fileID: 1675377883515528928, guid: 5f130ee154dbe9d4281ce419f8afc98c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1675377883515528929, guid: 5f130ee154dbe9d4281ce419f8afc98c, type: 3}
+      propertyPath: m_Color.b
+      value: 0.4590441
+      objectReference: {fileID: 0}
+    - target: {fileID: 1675377883515528929, guid: 5f130ee154dbe9d4281ce419f8afc98c, type: 3}
+      propertyPath: m_Color.g
+      value: 0.9042952
+      objectReference: {fileID: 0}
+    - target: {fileID: 1675377883515528929, guid: 5f130ee154dbe9d4281ce419f8afc98c, type: 3}
+      propertyPath: m_Color.r
+      value: 0.99667984
+      objectReference: {fileID: 0}
+    - target: {fileID: 1675377883515528929, guid: 5f130ee154dbe9d4281ce419f8afc98c, type: 3}
+      propertyPath: m_Intensity
+      value: 0.7107072
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f130ee154dbe9d4281ce419f8afc98c, type: 3}

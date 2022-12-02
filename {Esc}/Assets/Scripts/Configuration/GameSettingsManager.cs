@@ -19,9 +19,11 @@ public class GameSettingsManager
     {
         this.dataFile = dataFile;
         if (!File.Exists(dataFile))
+		{
             File.Create(dataFile).Close();
-        
-        Load();
+			Save();
+		} else
+			Load();
     }
 
     public void Load()
