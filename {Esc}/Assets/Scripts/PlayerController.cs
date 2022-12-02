@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
     float prev_mouseX;
     float mouseY;
 
-    float finalSpeed;
+    public float finalSpeed;
     float verticalAxis;
     float horizontalAxis;
 
@@ -122,7 +122,9 @@ public class PlayerController : MonoBehaviour
             {
                 verticalAxis = Input.GetAxis("Vertical") * finalSpeed * 1000f * Time.fixedDeltaTime;
                 horizontalAxis = Input.GetAxis("Horizontal") * finalSpeed * 1000f * Time.fixedDeltaTime;
-                move = transform.right * horizontalAxis + transform.forward * verticalAxis;
+				if (verticalAxis + horizontalAxis == 0)
+					finalSpeed = 0f;
+                move = Vector3.ClampMagnitude(transform.right * horizontalAxis + transform.forward * verticalAxis, finalSpeed * 100f);
             }
 
             // double jump
@@ -150,8 +152,8 @@ public class PlayerController : MonoBehaviour
                 AddForce((move * airAccelerationMultiplier - move * airFrictionMultiplier) / -airDrag, ForceMode.Acceleration);
             
             // animation
-            playerAnimation.SetBool("isRunning", isSprinting && move.magnitude != 0);
-            playerAnimation.SetBool("isWalking", move.magnitude != 0);
+            // playerAnimation.SetBool("isRunning", isSprinting && move.magnitude != 0);
+            // playerAnimation.SetBool("isWalking", move.magnitude != 0);
         }
 
         // gravity
@@ -162,7 +164,7 @@ public class PlayerController : MonoBehaviour
     {
         if (resetVelocity)
         {
-            currentSpeed = rigidBody.velocity.magnitude;
+            currentSpeed = rigidBody.velocity.x;
             rigidBody.velocity = new Vector3(0, rigidBody.velocity.y, 0);
         }
             rigidBody.AddForce(force, mode);

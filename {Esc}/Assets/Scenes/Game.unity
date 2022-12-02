@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.7164904
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 510394435}
-  m_IndirectSpecularColor: {r: 0.41458887, g: 0.3705693, b: 0.18179648, a: 0.7164904}
+  m_IndirectSpecularColor: {r: 0.08278796, g: 0.13062449, b: 0.183685, a: 0.7164904}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -7020,7 +7020,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh42478
+  m_Name: pb_Mesh25126
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -34835,7 +34835,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh41784
+  m_Name: pb_Mesh24432
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -78104,7 +78104,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 737bb91c774220243bbcfe784f25aca2, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 1
+  m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
@@ -78112,6 +78112,21 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1378733513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1378733511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eae93e5149cf57a4ab3f6246887a4d4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 1378733512}
+  velocityParameterName: velocity
+  playerController: {fileID: 1366750006}
 --- !u!1 &1388121295
 GameObject:
   m_ObjectHideFlags: 0
