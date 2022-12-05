@@ -9,6 +9,7 @@ public class GameConfiguration : MonoBehaviour
     [SerializeField] [ReadOnly] public GameSettingsManager gameDataManager;
 
     [SerializeField] public PlayerController playerController;
+    [SerializeField] public HUDSettings hudSettings;
 
     void Awake()
     {
@@ -44,5 +45,9 @@ public class GameConfiguration : MonoBehaviour
             playerController.audioSource.volume = gameDataManager.audioVolume;
             playerController.mouseSensitivity = gameDataManager.mouseSensitivity;
         }
+		if (hudSettings is not null)
+		{
+			hudSettings.crossHairSize = gameDataManager.crossHairSize;
+		}
     }
 }

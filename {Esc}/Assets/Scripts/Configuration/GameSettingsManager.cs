@@ -9,6 +9,7 @@ public class GameSettingsManager
 {
     public float audioVolume = 0.3f;
     public float mouseSensitivity = 5.0f;
+	public float crossHairSize = 0.2f;
 
     private string dataFile;
 
@@ -31,6 +32,7 @@ public class GameSettingsManager
         GameSettingsManager newData = RetrieveData(this.dataFile);
         this.audioVolume = newData.audioVolume;
         this.mouseSensitivity = newData.mouseSensitivity;
+		this.crossHairSize = newData.crossHairSize;
     }
     
     public void Save()

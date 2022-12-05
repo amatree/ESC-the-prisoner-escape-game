@@ -1467,11 +1467,11 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 2
-    m_ConditionEvent: isIdling
-    m_EventTreshold: 0
   - m_ConditionMode: 1
     m_ConditionEvent: isGoingBackward
+    m_EventTreshold: 0
+  - m_ConditionMode: 1
+    m_ConditionEvent: isSprinting
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -5172328134649294303}
@@ -1589,7 +1589,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: character animator
+  m_Name: CharacterAnimator
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: isSprinting
@@ -2034,14 +2034,8 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: isGoingBackward
     m_EventTreshold: 0
-  - m_ConditionMode: 1
-    m_ConditionEvent: isWalking
-    m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: isIdling
-    m_EventTreshold: 0
-  - m_ConditionMode: 2
-    m_ConditionEvent: isSprinting
     m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: isStrafingLeft

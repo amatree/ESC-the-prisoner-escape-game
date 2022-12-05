@@ -6,6 +6,9 @@ using TMPro;
 
 public class HUDSettings : MonoBehaviour
 {
+	[Header("Game Configuration")]
+    public GameConfiguration gameConfiguration;
+
     [Header("Text Components")]
     public TMP_Text tooltipTextComponent;
     [ReadOnly] public string currentTooltipText;
@@ -14,10 +17,12 @@ public class HUDSettings : MonoBehaviour
     public Image crossHair;
     [Range(0.2f, 1.0f)] public float crossHairSize = 0.2f;
 
+	float prevCrosshairSize = 0.2f;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        prevCrosshairSize = crossHairSize;
     }
 
     // Update is called once per frame
@@ -25,6 +30,11 @@ public class HUDSettings : MonoBehaviour
     {
         if (tooltipTextComponent is not null)
             currentTooltipText = tooltipTextComponent.text;
+		if (crossHair is not null && crossHairSize != prevCrosshairSize)
+		{
+			prevCrosshairSize = crossHairSize;
+			crossHair.rectTransform.localScale = new Vector3(crossHairSize, crossHairSize, crossHairSize);
+		}
     }
 
     public bool GetState()

@@ -37,7 +37,6 @@ public class PlayerController : MonoBehaviour
     public float groundDistace = 0.03f;
     public KeyCode sprintKey = KeyCode.LeftShift;
     public KeyCode jumpKey = KeyCode.Space;
-    public GameConfiguration gameConfiguration;
 
     float mouseX;
     float prev_mouseX;
