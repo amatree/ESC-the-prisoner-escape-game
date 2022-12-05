@@ -131105,7 +131105,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2506232026670297597, guid: 120abcb9e32dfe84080d1b9aca962fc4, type: 3}
       propertyPath: m_Name
-      value: CharacterPrefab
+      value: MainCharacterPrefab
       objectReference: {fileID: 0}
     - target: {fileID: 2506232026670297598, guid: 120abcb9e32dfe84080d1b9aca962fc4, type: 3}
       propertyPath: gameConfiguration
