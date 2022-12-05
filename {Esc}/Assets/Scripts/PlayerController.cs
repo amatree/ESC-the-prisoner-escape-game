@@ -107,26 +107,17 @@ public class PlayerController : MonoBehaviour
                 mouseX = prev_mouseX;
             }
 
-
             transform.localRotation = Quaternion.Euler(-mouseY, 0f, 0f);
             if (hasCameraControl) playerCamera.transform.localRotation = Quaternion.Euler(-mouseY, 0f, 0f);
             transform.rotation = Quaternion.Euler(0f, mouseX, 0f);
 
             // position
             Vector3 move = Vector3.zero;
-            if (rigidBody.SweepTest((Mathf.Sign(horizontalAxis) * Vector3.right), out RaycastHit hit1, 0.3f) && !isGrounded)
-            {
-                verticalAxis = 0f;
-                horizontalAxis = 0f;
-                rigidBody.velocity = new Vector3(0, rigidBody.velocity.y, 0);
-            } else
-            {
-                verticalAxis = Input.GetAxisRaw("Vertical") * finalSpeed * 1000f * Time.fixedDeltaTime;
-                horizontalAxis = Input.GetAxisRaw("Horizontal") * finalSpeed * 1000f * Time.fixedDeltaTime;
-				if (verticalAxis == 0 && horizontalAxis == 0)
-					finalSpeed = 0f;
-                move = Vector3.ClampMagnitude(transform.right * horizontalAxis + transform.forward * verticalAxis, finalSpeed * 100f);
-            }
+			verticalAxis = Input.GetAxisRaw("Vertical") * finalSpeed * 1000f * Time.fixedDeltaTime;
+			horizontalAxis = Input.GetAxisRaw("Horizontal") * finalSpeed * 1000f * Time.fixedDeltaTime;
+			if (verticalAxis == 0 && horizontalAxis == 0)
+				finalSpeed = 0f;
+			move = Vector3.ClampMagnitude(transform.right * horizontalAxis + transform.forward * verticalAxis, finalSpeed * 25f);
 
             // double jump
             // if (jumpCount > 0 && jumpCount < 2 && enableDoubleJump && !isGrounded)

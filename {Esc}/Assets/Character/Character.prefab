@@ -1689,6 +1689,7 @@ GameObject:
   - component: {fileID: 6475200227589817374}
   - component: {fileID: 6475200227589817375}
   - component: {fileID: 6475200227589817373}
+  - component: {fileID: 3931106549684701505}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -1795,6 +1796,20 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.25
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
+--- !u!136 &3931106549684701505
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6133306332562340161}
+  m_Material: {fileID: 13400000, guid: 5c823042f81366942ba102efe446a3d4, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.26
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}

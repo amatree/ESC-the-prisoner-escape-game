@@ -1,54 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &226021736318566437
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2220601479427808305}
-  - component: {fileID: 6150483251682217288}
-  m_Layer: 0
-  m_Name: GameConfiguration
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2220601479427808305
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 226021736318566437}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2677080407957241217}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6150483251682217288
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 226021736318566437}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 106f3f8fa3bf93d45ac9e464925687f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainDataFile: 
-  gameDataManager:
-    audioVolume: 0
-    mouseSensitivity: 0
-  playerController: {fileID: 0}
 --- !u!1 &341381201518153059
 GameObject:
   m_ObjectHideFlags: 0
@@ -1181,7 +1132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 196b73d79e145ab458507a14810eedeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameConfiguration: {fileID: 6150483251682217288}
+  gameConfiguration: {fileID: 0}
   gameDataManager:
     audioVolume: 0
     mouseSensitivity: 0
@@ -1571,7 +1522,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 6150483251682217288}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GameConfiguration, Assembly-CSharp
         m_MethodName: StartGame
         m_Mode: 1
@@ -2494,7 +2445,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa612c7875fe8f24b85d0d0889554cbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameConfiguration: {fileID: 6150483251682217288}
+  gameConfiguration: {fileID: 0}
   gameDataManager:
     audioVolume: 0
     mouseSensitivity: 0
@@ -3554,7 +3505,6 @@ RectTransform:
   - {fileID: 3783058894395732168}
   - {fileID: 2677080407598849613}
   - {fileID: 2677080406154295466}
-  - {fileID: 2220601479427808305}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
