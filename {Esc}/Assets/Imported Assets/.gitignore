@@ -1,0 +1,5 @@
+# gitignore for imported assets
+# place this in the 'Imported Assets' folder
+
+/SciFi Warehouse Kit/
+SciFi Warehouse Kit.meta
