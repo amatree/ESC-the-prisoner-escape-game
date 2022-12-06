@@ -6,12 +6,20 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Player")]
     public Rigidbody rigidBody;
+	public CapsuleCollider playerCollider;
+	public GameObject playerModelPrefab;
 
     [ReadOnly] public float currentSpeed = 0f;
     [Range(1f, 10f)] public float movementSpeed = 5f;
     [Range(1f, 15f)] public float sprintSpeed = 10f;
     [Range(1f, 10f)] public float jumpHeight = 3f;
     [Tooltip("Disabled cuz it broke animation :3")] [ReadOnly] public bool enableDoubleJump = false;
+
+	[Header("Slope Handling")]
+	[ReadOnly] public bool isOnSlope;
+	public float maxSlopeAngle = 35.0f;
+	[ReadOnly] public float currSlopeAngle;
+	[ReadOnly] public RaycastHit slopeHit;
 
     [Header("Animation")]
     public Animator playerAnimation;
@@ -34,14 +42,19 @@ public class PlayerController : MonoBehaviour
     [Header("Other")]
     public Transform groundCheck;
     public LayerMask groundMask;
-    public float groundDistace = 0.03f;
+    public float groundDistance = 0.03f;
     public KeyCode sprintKey = KeyCode.LeftShift;
     public KeyCode jumpKey = KeyCode.Space;
 
+	[Header("Debug")]
     float mouseX;
     float prev_mouseX;
     float mouseY;
 
+	float dGroundDistance;
+
+	[ReadOnly] public Vector3 moveVector;
+    [ReadOnly] public float moveMagnitude;
     [ReadOnly] public float finalSpeed;
     [ReadOnly] public float verticalAxis;
     [ReadOnly] public float horizontalAxis;
@@ -71,6 +84,8 @@ public class PlayerController : MonoBehaviour
 
         playerCamera = playerCamera == null ? GetComponentInChildren<Camera>() : playerCamera;
         Cursor.lockState = CursorLockMode.Locked;
+
+		dGroundDistance = groundDistance;
     }
 
     // Update is called once per frame
@@ -92,7 +107,7 @@ public class PlayerController : MonoBehaviour
             // RaycastHit ray = RayCastFromFeet(Vector3.down * groundDistace, groundDistace);
             // Debug.DrawRay(groundCheck.position, Vector3.down * groundDistace, Color.cyan);
             // isGrounded = ray.transform is not null && (int)Mathf.Pow(2, ray.transform.gameObject.layer) == groundMask;
-            isGrounded = Physics.CheckSphere(groundCheck.position, groundDistace, groundMask);
+            isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
             // rotation
             mouseX += Input.GetAxis("Mouse X") * mouseSensitivity * 20f * Time.fixedDeltaTime;
@@ -111,12 +126,13 @@ public class PlayerController : MonoBehaviour
             transform.rotation = Quaternion.Euler(0f, mouseX, 0f);
 
             // position
-            Vector3 move = Vector3.zero;
+            moveVector = Vector3.zero;
 			verticalAxis = Input.GetAxisRaw("Vertical") * finalSpeed * 1000f * Time.fixedDeltaTime;
 			horizontalAxis = Input.GetAxisRaw("Horizontal") * finalSpeed * 1000f * Time.fixedDeltaTime;
 			if (verticalAxis == 0 && horizontalAxis == 0)
 				finalSpeed = 0f;
-			move = Vector3.ClampMagnitude(transform.right * horizontalAxis + transform.forward * verticalAxis, finalSpeed * 25f);
+			moveVector = Vector3.ClampMagnitude(transform.right * horizontalAxis + transform.forward * verticalAxis, finalSpeed * 25f);
+			moveMagnitude = moveVector.magnitude;
 
             // double jump
             // if (jumpCount > 0 && jumpCount < 2 && enableDoubleJump && !isGrounded)
@@ -140,15 +156,27 @@ public class PlayerController : MonoBehaviour
 			// single jump
 			if (Input.GetKey(jumpKey) && isGrounded)
 			{
-				StartCoroutine(ToggleJump(jumpHeight + (move.magnitude / 320f)));
+				StartCoroutine(ToggleJump(jumpHeight + (moveVector.magnitude / 320f)));
 			}
 
 
-            // add moving force
-            if (isGrounded && rigidBody.velocity.magnitude != 0)
-                AddForce(move * accelerationMultiplier - move * frictionMultiplier, ForceMode.Acceleration);
-            else if (!isGrounded && rigidBody.velocity.magnitude != 0)
-                AddForce((move * airAccelerationMultiplier - move * airFrictionMultiplier) / -airDrag, ForceMode.Acceleration);
+
+			// slope handling
+			isOnSlope = OnSlope();
+			if (isOnSlope)
+			{
+				// TODO: fix slope bounce
+				groundDistance = slopeHit.distance;
+				if (isGrounded) rigidBody.AddForce(GetSlopeMoveDirection() * finalSpeed * 2.5f, ForceMode.Acceleration);
+				rigidBody.AddForce(new Vector3(0, - currSlopeAngle * finalSpeed / maxSlopeAngle, 0), ForceMode.Acceleration);
+			} else if (isGrounded && rigidBody.velocity.magnitude != 0)
+			{
+                AddForce(moveVector * accelerationMultiplier - moveVector * frictionMultiplier, ForceMode.Acceleration);
+			} else if (!isGrounded && rigidBody.velocity.magnitude != 0)
+			{
+                AddForce((moveVector * airAccelerationMultiplier - moveVector * airFrictionMultiplier) / -airDrag, ForceMode.Acceleration); 
+			} else
+				groundDistance = dGroundDistance;
             
             // animation
             // playerAnimation.SetBool("isRunning", isSprinting && move.magnitude != 0);
@@ -156,13 +184,30 @@ public class PlayerController : MonoBehaviour
         }
 
         // gravity
-        rigidBody.AddForce(new Vector3(0, gravity, 0), ForceMode.Acceleration);
+		rigidBody.AddForce(new Vector3(0, gravity, 0), ForceMode.Acceleration);
     }
+
+	bool OnSlope()
+	{
+		if (Physics.Raycast(playerModelPrefab.transform.position, Vector3.down, out slopeHit, playerCollider.height * 0.5f + 0.3f))
+		{
+			currSlopeAngle = Vector3.Angle(transform.forward , slopeHit.normal);
+			return currSlopeAngle < maxSlopeAngle && currSlopeAngle != 0;
+		}
+
+		return false;
+	}
+
+	Vector3 GetSlopeMoveDirection() {
+		return Vector3.ProjectOnPlane(moveVector, slopeHit.normal).normalized;
+	}
 
 	IEnumerator ToggleJump(float jumpForceMultiplier = 3.0f, float delay = 0.1f)
 	{
 		if (!isGrounded)
 			yield return new WaitForSeconds(delay);
+		if (isOnSlope)
+			jumpForceMultiplier = 3.0f;
 		AddForce(Vector3.up * Mathf.Sqrt(-2f * jumpHeight / gravity) * jumpForceMultiplier, ForceMode.Impulse);
 	}
 

@@ -42,7 +42,10 @@ public class CharacterFootstep : MonoBehaviour
 	IEnumerator PlayClip(AudioClip clip)
 	{
 		if (audioSource.clip != clip) audioSource.clip = clip;
+		if (audioSource.isPlaying) audioSource.Stop();
 		audioSource.Play();
-		yield return new WaitForSeconds(clip.length);
+		while (audioSource.isPlaying)
+			yield return null;
+		audioSource.Stop();
 	}
 }
