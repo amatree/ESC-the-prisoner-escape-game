@@ -2521,7 +2521,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh24960
+  m_Name: pb_Mesh47254
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -19374,8 +19374,11 @@ MonoBehaviour:
   characterAnimator: {fileID: 6945284286000373150}
   audioSource: {fileID: 432496202}
   animationHandler: {fileID: 6945284286000373149}
-  walkingClip: {fileID: 8300000, guid: 04ccbdd960b4ba04cb8cd78d63963158, type: 3}
+  playerController: {fileID: 4802376507265936491}
+  walkingClip: {fileID: 8300000, guid: ed5ed0b5ac42d8941b0c68ff54f63cb2, type: 3}
   runningClip: {fileID: 8300000, guid: 8ae56723b21ce9e48b51a3d78c9d29f0, type: 3}
+  landingClip: {fileID: 8300000, guid: d137fb140138b4fa4836532d2cca1f0c, type: 3}
+  jumpingClip: {fileID: 8300000, guid: acf40a6b487874ce1a6a27370c82f68f, type: 3}
 --- !u!82 &432496202
 AudioSource:
   m_ObjectHideFlags: 0
@@ -19432,7 +19435,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -130519,7 +130522,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-78286
+  m_Name: pb_Mesh50338
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

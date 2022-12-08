@@ -191,7 +191,7 @@ public class PlayerController : MonoBehaviour
 	{
 		if (Physics.Raycast(playerModelPrefab.transform.position, Vector3.down, out slopeHit, playerCollider.height * 0.5f + 0.3f))
 		{
-			currSlopeAngle = Vector3.Angle(transform.forward , slopeHit.normal);
+			currSlopeAngle = Vector3.Angle(transform.forward , slopeHit.normal) - 90f;
 			return currSlopeAngle < maxSlopeAngle && currSlopeAngle != 0;
 		}
 
