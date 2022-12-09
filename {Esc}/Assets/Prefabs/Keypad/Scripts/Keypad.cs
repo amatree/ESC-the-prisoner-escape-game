@@ -151,6 +151,7 @@ public class Keypad : MonoBehaviour
             Vector3 screenPos = playerInteraction.playerCamera.ScreenToWorldPoint(mousePos);
             if (Input.GetMouseButtonDown(0))
             {
+				print(screenPos.x + "f, " + screenPos.y + "f, " + screenPos.z + "f");
                 int key = 0;
                 foreach (List<Vector3> keyPositions in keypadPositions)
                 {

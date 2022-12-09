@@ -245,11 +245,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigidBody: {fileID: 2506232026670297599}
+  playerCollider: {fileID: 4160784057505872263}
+  playerModelPrefab: {fileID: 3854934907783726299}
   currentSpeed: 0
   movementSpeed: 8
   sprintSpeed: 12
   jumpHeight: 2.5
   enableDoubleJump: 0
+  isOnSlope: 0
+  maxSlopeAngle: 35
+  currSlopeAngle: 0
   playerAnimation: {fileID: 0}
   playerCamera: {fileID: 2506232025688098193}
   mouseSensitivity: 5
@@ -264,13 +269,16 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 512
-  groundDistace: 0.1
+  groundDistance: 0.03
   sprintKey: 304
   jumpKey: 32
+  moveVector: {x: 0, y: 0, z: 0}
+  moveMagnitude: 0
   finalSpeed: 0
   verticalAxis: 0
   horizontalAxis: 0
   isGrounded: 0
+  isJumping: 0
   isSprinting: 0
   jumpCount: 0
   isJumpKeyPressed: 0
@@ -854,6 +862,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4df6a8aaaaebba3449b2634e1ac4ac58, type: 3}
+--- !u!1 &3854934907783726299 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6133306332562340161, guid: 4df6a8aaaaebba3449b2634e1ac4ac58, type: 3}
+  m_PrefabInstance: {fileID: 6945284287184502170}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &4160784057505872263 stripped
+CapsuleCollider:
+  m_CorrespondingSourceObject: {fileID: 6475200227589817373, guid: 4df6a8aaaaebba3449b2634e1ac4ac58, type: 3}
+  m_PrefabInstance: {fileID: 6945284287184502170}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4482394941246643809 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6797674777201370107, guid: 4df6a8aaaaebba3449b2634e1ac4ac58, type: 3}
