@@ -8,6 +8,7 @@ using System.IO;
 public class GameSettingsManager
 {
     public float audioVolume = 0.3f;
+    public float SFXVolume = 0.7f;
     public float mouseSensitivity = 5.0f;
 	public float crossHairSize = 0.2f;
 
@@ -31,6 +32,7 @@ public class GameSettingsManager
     {
         GameSettingsManager newData = RetrieveData(this.dataFile);
         this.audioVolume = newData.audioVolume;
+		this.SFXVolume = newData.SFXVolume;
         this.mouseSensitivity = newData.mouseSensitivity;
 		this.crossHairSize = newData.crossHairSize;
     }

@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
 	public float maxSlopeAngle = 35.0f;
 	[ReadOnly] public float currSlopeAngle;
 	[ReadOnly] public RaycastHit slopeHit;
+	bool groundDistanceChanged = false;
 
     [Header("Animation")]
     public Animator playerAnimation;
@@ -60,6 +61,7 @@ public class PlayerController : MonoBehaviour
     [ReadOnly] public float horizontalAxis;
 
     public bool isGrounded;
+    public bool isJumping;
     public bool isSprinting;
 
     [ReadOnly] public int jumpCount;
@@ -167,6 +169,7 @@ public class PlayerController : MonoBehaviour
 			{
 				// TODO: fix slope bounce
 				groundDistance = slopeHit.distance;
+				groundDistanceChanged = true;
 				if (isGrounded) rigidBody.AddForce(GetSlopeMoveDirection() * finalSpeed * 2.5f, ForceMode.Acceleration);
 				rigidBody.AddForce(new Vector3(0, - currSlopeAngle * finalSpeed / maxSlopeAngle, 0), ForceMode.Acceleration);
 			} else if (isGrounded && rigidBody.velocity.magnitude != 0)
@@ -175,8 +178,11 @@ public class PlayerController : MonoBehaviour
 			} else if (!isGrounded && rigidBody.velocity.magnitude != 0)
 			{
                 AddForce((moveVector * airAccelerationMultiplier - moveVector * airFrictionMultiplier) / -airDrag, ForceMode.Acceleration); 
-			} else
+			} else if (groundDistanceChanged)
+			{
 				groundDistance = dGroundDistance;
+				groundDistanceChanged = false;
+			}
             
             // animation
             // playerAnimation.SetBool("isRunning", isSprinting && move.magnitude != 0);
@@ -202,13 +208,23 @@ public class PlayerController : MonoBehaviour
 		return Vector3.ProjectOnPlane(moveVector, slopeHit.normal).normalized;
 	}
 
-	IEnumerator ToggleJump(float jumpForceMultiplier = 3.0f, float delay = 0.1f)
+	IEnumerator ToggleJump(float jumpForceMultiplier = 3.0f)
 	{
-		if (!isGrounded)
-			yield return new WaitForSeconds(delay);
-		if (isOnSlope)
-			jumpForceMultiplier = 3.0f;
-		AddForce(Vector3.up * Mathf.Sqrt(-2f * jumpHeight / gravity) * jumpForceMultiplier, ForceMode.Impulse);
+		if (!isJumping)
+		{
+			if (isOnSlope)
+				jumpForceMultiplier = 3.0f;
+			rigidBody.AddForce(Vector3.up * Mathf.Sqrt(-2f * jumpHeight / gravity) * jumpForceMultiplier, ForceMode.Impulse);
+
+			isJumping = true;
+			while (isGrounded) // wait until force takes transform up
+				yield return new WaitForEndOfFrame();
+
+			while (!isGrounded)
+				yield return new WaitForEndOfFrame();
+
+			isJumping = false;
+		}
 	}
 
     void AddForce(Vector3 force, ForceMode mode, bool resetVelocity = true)

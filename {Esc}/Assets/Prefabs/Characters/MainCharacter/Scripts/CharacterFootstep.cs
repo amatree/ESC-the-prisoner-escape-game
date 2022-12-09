@@ -39,10 +39,10 @@ public class CharacterFootstep : MonoBehaviour
 
         if (characterAnimator is not null)
 		{
-			if (characterAnimator.GetBool(animationHandler.isWalkingParameterName))
+			if (characterAnimator.GetBool(animationHandler.isWalkingParameterName) && playerController.isGrounded)
 			{
 			 	footstepClipC = StartCoroutine(PlayClip(walkingClip));
-			} else if (characterAnimator.GetBool(animationHandler.isSprintingParameterName))
+			} else if (characterAnimator.GetBool(animationHandler.isSprintingParameterName) && playerController.isGrounded)
 			{ 
 				footstepClipC = StartCoroutine(PlayClip(runningClip));
 			} else {
@@ -51,7 +51,7 @@ public class CharacterFootstep : MonoBehaviour
 			}
 
 
-			if (!playerController.isGrounded && wasOnGround)
+			if (playerController.isJumping && wasOnGround)
 			{
 				StartCoroutine(JumpAndLand());
 			}
@@ -63,14 +63,16 @@ public class CharacterFootstep : MonoBehaviour
 		if (!playerController.isGrounded && !didJump)
 		{
 			didJump = true;
-			audioSource.PlayOneShot(jumpingClip, 0.3f);
+			audioSource.Pause();
+			audioSource.PlayOneShot(jumpingClip, 0.2f);
 		}
 
 		while (!playerController.isGrounded)
 			yield return new WaitForEndOfFrame();
 
 		didJump = false;
-		audioSource.PlayOneShot(landingClip, 0.05f);
+		audioSource.PlayOneShot(landingClip, 0.01f);
+		audioSource.UnPause();
 	}
 
 	IEnumerator PlayClip(AudioClip clip)
@@ -78,8 +80,10 @@ public class CharacterFootstep : MonoBehaviour
 		if (audioSource.clip != clip) audioSource.clip = clip;
 		// if (audioSource.isPlaying) audioSource.Stop();
 		if (!audioSource.isPlaying) audioSource.Play();
-		while (audioSource.isPlaying)
+		float t = 0f;
+		while (t < clip.length)
 		{
+			t += Time.deltaTime;
 			yield return new WaitForEndOfFrame();
 		}
 		audioSource.Stop();

@@ -9,6 +9,7 @@ public class GameConfiguration : MonoBehaviour
     [SerializeField] [ReadOnly] public GameSettingsManager gameDataManager;
 
     [SerializeField] public PlayerController playerController;
+    [SerializeField] public CharacterFootstep characterFootstep;
     [SerializeField] public HUDSettings hudSettings;
 
     void Awake()
@@ -48,6 +49,10 @@ public class GameConfiguration : MonoBehaviour
 		if (hudSettings is not null)
 		{
 			hudSettings.crossHairSize = gameDataManager.crossHairSize;
+		}
+		if (characterFootstep is not null)
+		{
+			characterFootstep.audioSource.volume = gameDataManager.SFXVolume;
 		}
     }
 }

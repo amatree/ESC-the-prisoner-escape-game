@@ -34,11 +34,11 @@ public class ErikaArcherAnimationHandle : MonoBehaviour
 		animator.SetBool(isStrafingLeftParameterName, playerController.horizontalAxis < 0f);
 		animator.SetBool(isStrafingRightParameterName, playerController.horizontalAxis > 0f);
 
-		if (Input.GetKeyDown(playerController.jumpKey) && playerController.isGrounded)
+		if (playerController.isJumping)
 		{
 			animator.SetTrigger(isJumpingParameterName);
 			animator.SetFloat(jumpingSpeedParameterName, jumpSpeedVSHeight.Evaluate(playerController.transform.position.y));
-		} else if (playerController.isGrounded)
+		} else if (!playerController.isJumping && playerController.isGrounded)
 			animator.ResetTrigger(isJumpingParameterName);
     }
 }
