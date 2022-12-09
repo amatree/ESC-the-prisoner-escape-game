@@ -212,13 +212,18 @@ public class PlayerController : MonoBehaviour
 	{
 		if (!isJumping)
 		{
+			float timeout = 3.0f;
+			float currTimeout = 0f;
 			if (isOnSlope)
 				jumpForceMultiplier = 3.0f;
 			rigidBody.AddForce(Vector3.up * Mathf.Sqrt(-2f * jumpHeight / gravity) * jumpForceMultiplier, ForceMode.Impulse);
 
 			isJumping = true;
-			while (isGrounded) // wait until force takes transform up
+			while (isGrounded && currTimeout < timeout) // wait until force takes transform up
+			{
+				currTimeout += Time.fixedDeltaTime;
 				yield return new WaitForEndOfFrame();
+			}
 
 			while (!isGrounded)
 				yield return new WaitForEndOfFrame();

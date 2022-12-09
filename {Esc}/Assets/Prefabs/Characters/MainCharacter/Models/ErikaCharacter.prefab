@@ -1688,8 +1688,6 @@ GameObject:
   - component: {fileID: 6797674777201370107}
   - component: {fileID: 6475200227589817374}
   - component: {fileID: 6475200227589817375}
-  - component: {fileID: 6475200227589817373}
-  - component: {fileID: 3931106549684701505}
   m_Layer: 7
   m_Name: ErikaCharacter
   m_TagString: Untagged
@@ -1748,7 +1746,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6133306332562340161}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb4fd98c35354e44faf791e4846011eb, type: 3}
+  m_Script: {fileID: 11500000, guid: ad6a618bf6bbe49489d9618740abe938, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 6475200227589817374}
@@ -1760,6 +1758,10 @@ MonoBehaviour:
   isStrafingRightParameterName: isStrafingRight
   isJumpingParameterName: isJumping
   jumpingSpeedParameterName: jumpingAnimationSpeed
+  walkingSpeedMultiplierParameterName: walkingSpeedMultiplier
+  walkingSpeedMultiplier: 2
+  runningSpeedMultiplierParameterName: runningSpeedMultiplier
+  runningSpeedMultiplier: 2
   jumpSpeedVSHeight:
     serializedVersion: 2
     m_Curve:
@@ -1785,34 +1787,6 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   playerController: {fileID: 0}
---- !u!136 &6475200227589817373
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6133306332562340161}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.25
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
---- !u!136 &3931106549684701505
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6133306332562340161}
-  m_Material: {fileID: 13400000, guid: 5c823042f81366942ba102efe446a3d4, type: 2}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.26
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &6140719335398678602
 GameObject:
   m_ObjectHideFlags: 0

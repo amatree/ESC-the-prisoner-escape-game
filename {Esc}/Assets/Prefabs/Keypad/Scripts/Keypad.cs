@@ -39,6 +39,8 @@ public class Keypad : MonoBehaviour
     PlayerController playerController;
     bool canTry = true;
     bool isMouseButton0Hold = false;
+
+	Vector3 oldCamLocalPos;
     
     // Start is called before the first frame update
     void Start()
@@ -101,6 +103,7 @@ public class Keypad : MonoBehaviour
             isFocused = true;
             wasUnlocked = false;
             // toggle keypad UI here
+			oldCamLocalPos = playerInteraction.playerCamera.transform.localPosition;
             playerInteraction.playerController.GiveUpAllControl();
             playerInteraction.playerCamera.transform.SetParent(lookingAtKeypad.transform);
             playerInteraction.playerCamera.transform.LookAt(lookingAtKeypad.transform);
@@ -114,7 +117,7 @@ public class Keypad : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Escape) || CheckPasscode() || wasUnlocked) {
                 playerInteraction.playerController.RestoreAllControl();
                 playerInteraction.playerCamera.transform.SetParent(playerInteraction.transform);
-                playerInteraction.playerCamera.transform.localPosition = new Vector3(0f, 1.238f, 0.362f);
+                playerInteraction.playerCamera.transform.localPosition = oldCamLocalPos;
                 isFocused = false;
                 Cursor.visible = false;
                 Cursor.lockState = CursorLockMode.Locked;

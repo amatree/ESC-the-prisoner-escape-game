@@ -1,0 +1,211 @@
+fileFormatVersion: 2
+guid: 380f939f767550b44a2c1c76cbcb8240
+timeCreated: 1506462409
+licenseType: Store
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Base HumanLArm1
+    100002: Base HumanLArm2
+    100004: Base HumanLArmCollarbone
+    100006: Base HumanLArmDigit11
+    100008: Base HumanLArmDigit12
+    100010: Base HumanLArmDigit13
+    100012: Base HumanLArmDigit21
+    100014: Base HumanLArmDigit22
+    100016: Base HumanLArmDigit23
+    100018: Base HumanLArmDigit31
+    100020: Base HumanLArmDigit32
+    100022: Base HumanLArmDigit33
+    100024: Base HumanLArmDigit41
+    100026: Base HumanLArmDigit42
+    100028: Base HumanLArmDigit43
+    100030: Base HumanLArmDigit51
+    100032: Base HumanLArmDigit52
+    100034: Base HumanLArmDigit53
+    100036: Base HumanLArmPalm
+    100038: Base HumanLCalf
+    100040: Base HumanLDigit11
+    100042: Base HumanLFoot
+    100044: Base HumanLPlatform
+    100046: Base HumanLThigh
+    100048: Base HumanPelvis
+    100050: Base HumanRArm1
+    100052: Base HumanRArm2
+    100054: Base HumanRArmCollarbone
+    100056: Base HumanRArmDigit11
+    100058: Base HumanRArmDigit12
+    100060: Base HumanRArmDigit13
+    100062: Base HumanRArmDigit21
+    100064: Base HumanRArmDigit22
+    100066: Base HumanRArmDigit23
+    100068: Base HumanRArmDigit31
+    100070: Base HumanRArmDigit32
+    100072: Base HumanRArmDigit33
+    100074: Base HumanRArmDigit41
+    100076: Base HumanRArmDigit42
+    100078: Base HumanRArmDigit43
+    100080: Base HumanRArmDigit51
+    100082: Base HumanRArmDigit52
+    100084: Base HumanRArmDigit53
+    100086: Base HumanRArmPalm
+    100088: Base HumanRCalf
+    100090: Base HumanRDigit11
+    100092: Base HumanRFoot
+    100094: Base HumanRibcage001
+    100096: Base HumanRibcage002
+    100098: Base HumanRibcage002Bone001
+    100100: Base HumanRibcage002Bone002
+    100102: Base HumanRibcage002Bone003
+    100104: Base HumanRPlatform
+    100106: Base HumanRThigh
+    100108: Base HumanSpine
+    100110: Base HumanSpine1
+    100112: Base HumanSpine2
+    100114: //RootNode
+    100116: Plane001
+    400000: Base HumanLArm1
+    400002: Base HumanLArm2
+    400004: Base HumanLArmCollarbone
+    400006: Base HumanLArmDigit11
+    400008: Base HumanLArmDigit12
+    400010: Base HumanLArmDigit13
+    400012: Base HumanLArmDigit21
+    400014: Base HumanLArmDigit22
+    400016: Base HumanLArmDigit23
+    400018: Base HumanLArmDigit31
+    400020: Base HumanLArmDigit32
+    400022: Base HumanLArmDigit33
+    400024: Base HumanLArmDigit41
+    400026: Base HumanLArmDigit42
+    400028: Base HumanLArmDigit43
+    400030: Base HumanLArmDigit51
+    400032: Base HumanLArmDigit52
+    400034: Base HumanLArmDigit53
+    400036: Base HumanLArmPalm
+    400038: Base HumanLCalf
+    400040: Base HumanLDigit11
+    400042: Base HumanLFoot
+    400044: Base HumanLPlatform
+    400046: Base HumanLThigh
+    400048: Base HumanPelvis
+    400050: Base HumanRArm1
+    400052: Base HumanRArm2
+    400054: Base HumanRArmCollarbone
+    400056: Base HumanRArmDigit11
+    400058: Base HumanRArmDigit12
+    400060: Base HumanRArmDigit13
+    400062: Base HumanRArmDigit21
+    400064: Base HumanRArmDigit22
+    400066: Base HumanRArmDigit23
+    400068: Base HumanRArmDigit31
+    400070: Base HumanRArmDigit32
+    400072: Base HumanRArmDigit33
+    400074: Base HumanRArmDigit41
+    400076: Base HumanRArmDigit42
+    400078: Base HumanRArmDigit43
+    400080: Base HumanRArmDigit51
+    400082: Base HumanRArmDigit52
+    400084: Base HumanRArmDigit53
+    400086: Base HumanRArmPalm
+    400088: Base HumanRCalf
+    400090: Base HumanRDigit11
+    400092: Base HumanRFoot
+    400094: Base HumanRibcage001
+    400096: Base HumanRibcage002
+    400098: Base HumanRibcage002Bone001
+    400100: Base HumanRibcage002Bone002
+    400102: Base HumanRibcage002Bone003
+    400104: Base HumanRPlatform
+    400106: Base HumanRThigh
+    400108: Base HumanSpine
+    400110: Base HumanSpine1
+    400112: Base HumanSpine2
+    400114: //RootNode
+    400116: Plane001
+    4300000: Plane001
+    9500000: //RootNode
+    13700000: Plane001
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 08___Default
+    second: {fileID: 2100000, guid: cef59a4b89826634db780fd670df2964, type: 2}
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

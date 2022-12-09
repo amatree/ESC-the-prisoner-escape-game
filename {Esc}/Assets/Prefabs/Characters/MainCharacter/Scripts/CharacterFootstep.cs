@@ -7,7 +7,7 @@ public class CharacterFootstep : MonoBehaviour
 	[Header("Dependencies")]
 	public Animator characterAnimator;
 	public AudioSource audioSource;
-	public ErikaArcherAnimationHandle animationHandler;
+	public CharacterAnimationHandle animationHandler;
 	public PlayerController playerController;
 
 	[Header("SFX Settings")]
@@ -21,8 +21,8 @@ public class CharacterFootstep : MonoBehaviour
 
 	Coroutine footstepClipC;
 
-	bool didJump;
-	bool wasOnGround;
+	[ReadOnly] public bool didJump;
+	[ReadOnly] public bool wasOnGround;
 
     // Start is called before the first frame update
     void Start()
