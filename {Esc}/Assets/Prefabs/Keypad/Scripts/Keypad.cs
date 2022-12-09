@@ -6,6 +6,8 @@ using KeypadStructs;
 
 public class Keypad : MonoBehaviour
 {
+	public enum CharacterModel { MainCharacter, CapsuleCharacter }
+
     [Header("General")]
     public string keypadName = "Room#001";
     public int passcode = 1234;
@@ -17,6 +19,7 @@ public class Keypad : MonoBehaviour
     public bool keepCorrectPasscode = true;
     [ReadOnly] public string inputPasscode = "";
     [ReadOnly] public bool wasUnlocked = false;
+	public CharacterModel characterModel = CharacterModel.MainCharacter;
 
     [Header("Keypad Configuration")]
     public float keypadDownTime = 2.0f;
@@ -42,7 +45,8 @@ public class Keypad : MonoBehaviour
     {
         playerController = playerInteraction.playerController;
 
-        GenerateKeypadPositions();
+        if (characterModel == CharacterModel.CapsuleCharacter) GenerateKeypadPositions__C(); // for capsule character
+        else if (characterModel == CharacterModel.MainCharacter) GenerateKeypadPositions__M(); // for main character
         allKeyClickedMaterials = new List<Material>() {
             keypadMaterials.KeypadClicked000,
             keypadMaterials.KeypadClicked001,
@@ -151,7 +155,7 @@ public class Keypad : MonoBehaviour
             Vector3 screenPos = playerInteraction.playerCamera.ScreenToWorldPoint(mousePos);
             if (Input.GetMouseButtonDown(0))
             {
-				print(screenPos.x + "f, " + screenPos.y + "f, " + screenPos.z + "f");
+				// print(screenPos.x + "f, " + screenPos.y + "f, " + screenPos.z + "f");
                 int key = 0;
                 foreach (List<Vector3> keyPositions in keypadPositions)
                 {
@@ -207,7 +211,62 @@ public class Keypad : MonoBehaviour
         return c1 && c2;
     }
 
-    void GenerateKeypadPositions()
+	void GenerateKeypadPositions__M()
+    {
+        keypadPositions = new List<List<Vector3>>();
+
+        List<Vector3> tmpPos0 = new List<Vector3>();
+        tmpPos0.Add(new Vector3(-0.004032095f, 1.409144f, 0.7f));
+        tmpPos0.Add(new Vector3(0.00438273f, 1.40143f, 0.7f));
+        keypadPositions.Add(tmpPos0);
+
+        List<Vector3> tmpPos1 = new List<Vector3>();
+        tmpPos1.Add(new Vector3(-0.01490124f, 1.4407f, 0.7f));
+        tmpPos1.Add(new Vector3(-0.006720162f, 1.432402f, 0.7f));
+        keypadPositions.Add(tmpPos1);
+
+        List<Vector3> tmpPos2 = new List<Vector3>();
+        tmpPos2.Add(new Vector3(-0.004148967f, 1.440583f, 0.7f));
+        tmpPos2.Add(new Vector3(0.00414898f, 1.432635f, 0.7f));
+        keypadPositions.Add(tmpPos2);
+
+        List<Vector3> tmpPos3 = new List<Vector3>();
+        tmpPos3.Add(new Vector3(0.006603308f, 1.440466f, 0.7f));
+        tmpPos3.Add(new Vector3(0.015135f, 1.432402f, 0.7f));
+        keypadPositions.Add(tmpPos3);
+
+        List<Vector3> tmpPos4 = new List<Vector3>();
+        tmpPos4.Add(new Vector3(-0.01513498f, 1.430181f, 0.7f));
+        tmpPos4.Add(new Vector3(-0.006720162f, 1.422117f, 0.7f));
+        keypadPositions.Add(tmpPos4);
+
+        List<Vector3> tmpPos5 = new List<Vector3>();
+        tmpPos5.Add(new Vector3(-0.004499585f, 1.430532f, 0.7f));
+        tmpPos5.Add(new Vector3(0.004032112f, 1.422467f, 0.7f));
+        keypadPositions.Add(tmpPos5);
+
+        List<Vector3> tmpPos6 = new List<Vector3>();
+        tmpPos6.Add(new Vector3(0.006252691f, 1.430181f, 0.7f));
+        tmpPos6.Add(new Vector3(0.01490126f, 1.422117f, 0.7f));
+        keypadPositions.Add(tmpPos6);
+
+        List<Vector3> tmpPos7 = new List<Vector3>();
+        tmpPos7.Add(new Vector3(-0.01513498f, 1.419779f, 0.7f));
+        tmpPos7.Add(new Vector3(-0.006837034f, 1.411832f, 0.7f));
+        keypadPositions.Add(tmpPos7);
+
+        List<Vector3> tmpPos8 = new List<Vector3>();
+        tmpPos8.Add(new Vector3(-0.004148967f, 1.419546f, 0.7f));
+        tmpPos8.Add(new Vector3(0.004032112f, 1.411949f, 0.7f));
+        keypadPositions.Add(tmpPos8);
+
+        List<Vector3> tmpPos9 = new List<Vector3>();
+        tmpPos9.Add(new Vector3(0.006486434f, 1.419779f, 0.7f));
+        tmpPos9.Add(new Vector3(0.01478438f, 1.411715f, 0.7f));
+        keypadPositions.Add(tmpPos9);
+    }
+
+    void GenerateKeypadPositions__C()
     {
         keypadPositions = new List<List<Vector3>>();
 
