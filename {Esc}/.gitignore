@@ -60,7 +60,6 @@ crashlytics-build.properties
 
 # User Settings
 /UserSettings/
-.vscode
 
 # macOS
 *.DS_Store
