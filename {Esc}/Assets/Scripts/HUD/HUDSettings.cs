@@ -12,7 +12,6 @@ public class HUDSettings : MonoBehaviour
     [Header("Text Components")]
     public TMP_Text tooltipTextComponent;
     [ReadOnly] public string currentTooltipText;
-	[ReadOnly] public bool isLocked = false;
 
     [Header("Crosshair Settings")]
     public Image crossHair;
@@ -29,26 +28,14 @@ public class HUDSettings : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // if (tooltipTextComponent is not null)
-        //     currentTooltipText = tooltipTextComponent.text;
+        if (tooltipTextComponent is not null)
+            currentTooltipText = tooltipTextComponent.text;
 		if (crossHair is not null && crossHairSize != prevCrosshairSize)
 		{
 			prevCrosshairSize = crossHairSize;
 			crossHair.rectTransform.localScale = new Vector3(crossHairSize, crossHairSize, crossHairSize);
 		}
     }
-
-	public void AquireLock()
-	{
-		if (!isLocked)
-			isLocked = true;
-	}
-
-	public void ReleaseLock()
-	{
-		if (isLocked)
-			isLocked = false;
-	}
 
     public bool GetState()
     {
@@ -76,17 +63,14 @@ public class HUDSettings : MonoBehaviour
 
     public void SetTooltipText(string setText = "")
     {
-		if (!isLocked)
-		{
-			if (!GetState())
-				SetTooltipTextState(true);
+		if (!GetState())
+			SetTooltipTextState(true);
 
-			if (setText == "")
-				SetTextColor(Color.white);
+		if (setText == "")
+			SetTextColor(Color.white);
 
-			if (tooltipTextComponent is not null)
-				tooltipTextComponent.text = setText;
-		}
+		if (tooltipTextComponent is not null)
+			tooltipTextComponent.text = setText;
     }
 
     public void SetTooltipText(string setText, Color color)

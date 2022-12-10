@@ -9,11 +9,11 @@ public class SimonSaysHandle : MonoBehaviour
     public string deviceName = "SimonSays#001";
     public KeyCode accessKey = KeyCode.E;
     [Tooltip("add {0} in to be filled in with `accessKey`")]
-    public string deviceTooltipText = "Press {0} to use device";
+    public string deviceTooltipText = "Press {0} to use Device";
     public string correctTooltipText = "Access GRANTED!!!";
     public string errorTooltipText = "Wrong sequence please try again or press ESC to exit.";
     [ReadOnly] public bool wasUnlocked = false;
-	public SimonSaysButtons simonSaysButtons;
+	public SimonSaysButtonSequence simonSaysButtonSequence;
 
     [Header("Interactions")]
     public PlayerInteraction playerInteraction;
@@ -23,13 +23,17 @@ public class SimonSaysHandle : MonoBehaviour
     
     SimonSaysHandle lookingAtDevice;
     PlayerController playerController;
-    // bool canTry = true;
+    bool canTry = true;
     // bool isMouseButton0Hold = false;
+
+	Vector3 oldCamLocalPos;
+	string deviceTText;
 	
     // Start is called before the first frame update
     void Start()
     {
-		SimonSaysButtons.SetEmissionStateOfButton(simonSaysButtons.BlueButton);
+		deviceTText = deviceTooltipText.Contains("{0}") ? string.Format(deviceTooltipText, accessKey) : deviceTooltipText;
+		simonSaysButtonSequence.Play(this);
     }
 
     // Update is called once per frame
@@ -48,13 +52,62 @@ public class SimonSaysHandle : MonoBehaviour
                     // player is looking at the device
                     if (!wasUnlocked)
 					{
-                        hudSettings.SetTooltipText(deviceTooltipText.Contains("{0}") ? string.Format(deviceTooltipText, accessKey) : deviceTooltipText);
+                        hudSettings.SetTooltipText(deviceTText);
 					}
                 }
-            } else if (lookingAtDevice is null && hudSettings.currentTooltipText != "") {
+            } else if (!isLookedAt && hudSettings.currentTooltipText == deviceTText) {
                 hudSettings.SetTooltipText();
             }
         }
         
+        CheckForAccessToggle();
+		CheckForAccess();
     }
+
+	bool CheckSequence()
+	{
+		return false;
+	}
+
+	void CheckForAccessToggle()
+	{
+        if (isLookedAt && !isFocused && Input.GetKeyDown(accessKey))
+        {
+			simonSaysButtonSequence.Play(this);
+			hudSettings.SetTooltipTextState(false);
+			isFocused = true;
+			wasUnlocked = false;
+			// toggle keypad UI here
+			oldCamLocalPos = playerInteraction.playerCamera.transform.localPosition;
+			playerInteraction.playerController.GiveUpAllControl();
+			playerInteraction.playerCamera.transform.SetParent(lookingAtDevice.transform);
+			playerInteraction.playerCamera.transform.LookAt(lookingAtDevice.transform);
+			playerInteraction.playerCamera.transform.localRotation = Quaternion.Euler(0f, 180f, 0f);
+			playerInteraction.playerCamera.transform.localPosition = new Vector3(0f, 0f, 1.08f);
+			Cursor.visible = true;
+			Cursor.lockState = CursorLockMode.None;
+			while (simonSaysButtonSequence.isSequencePlaying);
+        }
+	}
+
+	void CheckForAccess()
+	{
+        if (isFocused && canTry)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape) || CheckSequence() || wasUnlocked) {
+                playerInteraction.playerController.RestoreAllControl();
+                playerInteraction.playerCamera.transform.SetParent(playerInteraction.transform);
+                playerInteraction.playerCamera.transform.localPosition = oldCamLocalPos;
+                isFocused = false;
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+            }
+
+            if (wasUnlocked)
+            {
+                // correct actions here
+                hudSettings.ToggleTooltip(correctTooltipText, Color.green);
+            }
+        }
+	}
 }
