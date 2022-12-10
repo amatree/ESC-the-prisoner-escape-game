@@ -1687,7 +1687,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6797674777201370107}
   - component: {fileID: 6475200227589817374}
-  - component: {fileID: 6475200227589817375}
+  - component: {fileID: 5668980443622777317}
   m_Layer: 7
   m_Name: ErikaCharacter
   m_TagString: Untagged
@@ -1737,7 +1737,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &6475200227589817375
+--- !u!114 &5668980443622777317
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1746,39 +1746,42 @@ MonoBehaviour:
   m_GameObject: {fileID: 6133306332562340161}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad6a618bf6bbe49489d9618740abe938, type: 3}
+  m_Script: {fileID: 11500000, guid: d50621fb1e4db3447b30e9d13f58c42d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 6475200227589817374}
   isSprintingParameterName: isSprinting
   isWalkingParameterName: isWalking
+  isSlowWalkingParameterName: isSlowWalking
   isIdlingParameterName: isIdling
   isGoingBackwardParameterName: isGoingBackward
   isStrafingLeftParameterName: isStrafingLeft
   isStrafingRightParameterName: isStrafingRight
   isJumpingParameterName: isJumping
   jumpingSpeedParameterName: jumpingAnimationSpeed
+  slowWalkingSpeedMultiplierParameterName: slowWalkingSpeedMultiplier
+  slowWalkingSpeedMultiplier: 1
   walkingSpeedMultiplierParameterName: walkingSpeedMultiplier
-  walkingSpeedMultiplier: 2
+  walkingSpeedMultiplier: 3
   runningSpeedMultiplierParameterName: runningSpeedMultiplier
   runningSpeedMultiplier: 2
   jumpSpeedVSHeight:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: -0.033333335
-      outSlope: -0.033333335
+      time: -0.029006958
+      value: 2.2051888
+      inSlope: -1.1964445
+      outSlope: -1.1964445
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 10
-      value: 0.7
-      inSlope: -0.033333335
-      outSlope: -0.033333335
+      time: 1.4198608
+      value: 0.47169876
+      inSlope: -1.1964445
+      outSlope: -1.1964445
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334

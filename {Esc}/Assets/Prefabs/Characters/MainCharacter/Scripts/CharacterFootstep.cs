@@ -22,7 +22,7 @@ public class CharacterFootstep : MonoBehaviour
 	Coroutine footstepClipC;
 
 	[ReadOnly] public bool didJump;
-	[ReadOnly] public bool wasOnGround;
+	[ReadOnly] public bool isInAirWithoutJumping;
 
     // Start is called before the first frame update
     void Start()
@@ -34,29 +34,44 @@ public class CharacterFootstep : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		if (!wasOnGround && playerController.isGrounded)
-			wasOnGround = true;
-
         if (characterAnimator is not null)
 		{
-			if (characterAnimator.GetBool(animationHandler.isWalkingParameterName) && playerController.isGrounded)
+			if (playerController.finalSpeed > 0f && playerController.finalSpeed < playerController.sprintSpeed && playerController.isGrounded)
 			{
+				if (footstepClipC is not null) StopCoroutine(footstepClipC);
 			 	footstepClipC = StartCoroutine(PlayClip(walkingClip));
-			} else if (characterAnimator.GetBool(animationHandler.isSprintingParameterName) && playerController.isGrounded)
+			} else if (playerController.isSprinting && playerController.isGrounded)
 			{ 
+				if (footstepClipC is not null) StopCoroutine(footstepClipC);
 				footstepClipC = StartCoroutine(PlayClip(runningClip));
 			} else {
-				if  (footstepClipC is not null) StopCoroutine(footstepClipC);
+				if (footstepClipC is not null) StopCoroutine(footstepClipC);
 				if (audioSource.clip == walkingClip || audioSource.clip == runningClip) audioSource.clip = null;
 			}
 
 
-			if (playerController.isJumping && wasOnGround)
+			if (playerController.isJumping)
 			{
 				StartCoroutine(JumpAndLand());
+			} else if (!playerController.isGrounded && !playerController.isJumping)
+			{
+				isInAirWithoutJumping = true;
+				StartCoroutine(Landing());
 			}
 		}
     }
+
+	IEnumerator Landing()
+	{
+		if (!playerController.isGrounded && isInAirWithoutJumping)
+		{
+			while (!playerController.isGrounded)
+				yield return new WaitForEndOfFrame();
+
+			audioSource.PlayOneShot(landingClip, 0.01f);
+			isInAirWithoutJumping = false;
+		}
+	}
 
 	IEnumerator JumpAndLand()
 	{
@@ -77,8 +92,8 @@ public class CharacterFootstep : MonoBehaviour
 
 	IEnumerator PlayClip(AudioClip clip)
 	{
+		if (audioSource.isPlaying && audioSource.clip != clip) audioSource.Stop();
 		if (audioSource.clip != clip) audioSource.clip = clip;
-		// if (audioSource.isPlaying) audioSource.Stop();
 		if (!audioSource.isPlaying) audioSource.Play();
 		float t = 0f;
 		while (t < clip.length)

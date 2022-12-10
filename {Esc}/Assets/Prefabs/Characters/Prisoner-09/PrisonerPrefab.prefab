@@ -588,13 +588,12 @@ MonoBehaviour:
   audioSource: {fileID: 4212769296435195979}
   animationHandler: {fileID: 8867397098376096114}
   playerController: {fileID: 1779255989071355903}
-  enable3D: 1
+  enable3D: 0
   walkingClip: {fileID: 8300000, guid: ed5ed0b5ac42d8941b0c68ff54f63cb2, type: 3}
   runningClip: {fileID: 8300000, guid: 8ae56723b21ce9e48b51a3d78c9d29f0, type: 3}
   landingClip: {fileID: 8300000, guid: d137fb140138b4fa4836532d2cca1f0c, type: 3}
   jumpingClip: {fileID: 8300000, guid: acf40a6b487874ce1a6a27370c82f68f, type: 3}
   didJump: 0
-  wasOnGround: 0
 --- !u!1 &6490909823288557781
 GameObject:
   m_ObjectHideFlags: 0

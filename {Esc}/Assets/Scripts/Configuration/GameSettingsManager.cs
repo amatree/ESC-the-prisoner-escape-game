@@ -31,10 +31,10 @@ public class GameSettingsManager
     public void Load()
     {
         GameSettingsManager newData = RetrieveData(this.dataFile);
-        this.audioVolume = newData.audioVolume;
-		this.SFXVolume = newData.SFXVolume;
-        this.mouseSensitivity = newData.mouseSensitivity;
-		this.crossHairSize = newData.crossHairSize;
+        if (!float.IsNaN(newData.audioVolume)) this.audioVolume = newData.audioVolume;
+		if (!float.IsNaN(newData.SFXVolume)) this.SFXVolume = newData.SFXVolume;
+        if (!float.IsNaN(newData.mouseSensitivity)) this.mouseSensitivity = newData.mouseSensitivity;
+		if (!float.IsNaN(newData.crossHairSize)) this.crossHairSize = newData.crossHairSize;
     }
     
     public void Save()
