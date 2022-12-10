@@ -80,20 +80,11 @@ public class Keypad : MonoBehaviour
                     // player is looking at a keypad
                     if (!wasUnlocked) 
                     {
-                        if (keypadTooltipText.Contains("{0}"))
-                        {
-                            hudSettings.SetTooltipText(string.Format(keypadTooltipText, accessKey));
-                        } else
-                            hudSettings.SetTooltipText(keypadTooltipText);
+                        hudSettings.SetTooltipText(keypadTooltipText.Contains("{0}") ? string.Format(keypadTooltipText, accessKey) : keypadTooltipText);
                     }
-                } else {
-                    hudSettings.SetTooltipText();
-                    isLookedAt = false;
-                }
-            } else if (!isLookedAt)
-            {
+                } 
+            } else if (lookingAtKeypad is null && hudSettings.currentTooltipText != "") {
                 hudSettings.SetTooltipText();
-                isLookedAt = false;
             }
         }
         
