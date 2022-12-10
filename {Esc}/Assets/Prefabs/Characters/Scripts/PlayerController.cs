@@ -9,10 +9,15 @@ public class PlayerController : MonoBehaviour
 	public CapsuleCollider playerCollider;
 	public GameObject playerModelPrefab;
 
+    [Header("Speed & Key Configuration")]
     [ReadOnly] public float currentSpeed = 0f;
+    [Range(1f, 10f)] public float slowWalkSpeed = 2f;
+    public KeyCode slowWalkKey = KeyCode.LeftControl;
     [Range(1f, 10f)] public float movementSpeed = 5f;
     [Range(1f, 15f)] public float sprintSpeed = 10f;
+    public KeyCode sprintKey = KeyCode.LeftShift;
     [Range(1f, 10f)] public float jumpHeight = 3f;
+    public KeyCode jumpKey = KeyCode.Space;
     [Tooltip("Disabled cuz it broke animation :3")] [ReadOnly] public bool enableDoubleJump = false;
 
 	[Header("Slope Handling")]
@@ -44,34 +49,33 @@ public class PlayerController : MonoBehaviour
     public Transform groundCheck;
     public LayerMask groundMask;
     public float groundDistance = 0.03f;
-    public KeyCode sprintKey = KeyCode.LeftShift;
-    public KeyCode jumpKey = KeyCode.Space;
 
 	[Header("Debug")]
-    float mouseX;
-    float prev_mouseX;
-    float mouseY;
-
-	float dGroundDistance;
-
 	[ReadOnly] public Vector3 moveVector;
     [ReadOnly] public float moveMagnitude;
     [ReadOnly] public float finalSpeed;
     [ReadOnly] public float verticalAxis;
     [ReadOnly] public float horizontalAxis;
 
-    public bool isGrounded;
-    public bool isJumping;
-    public bool isSprinting;
+    [ReadOnly] public bool isGrounded;
+    [ReadOnly] public bool isJumping;
+    [ReadOnly] public bool isWalkingSlow;
+    [ReadOnly] public bool isSprinting;
 
     [ReadOnly] public int jumpCount;
     [ReadOnly] public bool isJumpKeyPressed;
     [ReadOnly] public bool isJumpKeyReleased;
 
-    int collisionContactCount = 0;
+    [ReadOnly] public int collisionContactCount = 0;
 
-    public bool hasCameraControl = true;
-    public bool hasAllControl = true;
+    [ReadOnly] public bool hasCameraControl = true;
+    [ReadOnly] public bool hasAllControl = true;
+
+    [ReadOnly] public float mouseX;
+    [ReadOnly] public float prev_mouseX;
+    [ReadOnly] public float mouseY;
+
+	[ReadOnly] public float dGroundDistance;
 
     // Start is called before the first frame update
     void Start()
@@ -102,7 +106,9 @@ public class PlayerController : MonoBehaviour
         {
             // state checks
             isSprinting = Input.GetKey(sprintKey);
-            finalSpeed = isSprinting ? sprintSpeed : movementSpeed;
+			isWalkingSlow = Input.GetKey(slowWalkKey);
+			
+            finalSpeed = isSprinting ? sprintSpeed : isWalkingSlow ? slowWalkSpeed : movementSpeed;
             if (collisionContactCount > 1 && !isGrounded)
                 finalSpeed = 0f;
 
@@ -250,8 +256,15 @@ public class PlayerController : MonoBehaviour
 
     public void GiveUpAllControl()
     {
+		verticalAxis = 0f;
+		horizontalAxis = 0f;
+		finalSpeed = 0f;
         rigidBody.velocity = new Vector3(0, 0, 0);
-        transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+
+		isJumping = false;
+		isGrounded = true;
+		isSprinting = false;
+        // transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         hasAllControl = false;
     }
 
@@ -290,7 +303,12 @@ public class PlayerController : MonoBehaviour
         // print(collision.contacts.Length);
     }
 
-    public void PlayFX(AudioClip clip, float volume = 1f, bool resetVolumeAfter = true)
+	public void PlaySFXOnce(AudioClip clip, float volumeScale = 0.3f)
+	{
+        this.audioSource.PlayOneShot(clip, volumeScale);
+	}
+
+    public void PlaySFX(AudioClip clip, float volume = 1f, bool resetVolumeAfter = true)
     {
         StartCoroutine(PlayFX_IE(clip, volume, resetVolumeAfter));
     }
@@ -305,5 +323,23 @@ public class PlayerController : MonoBehaviour
             yield return null;
         this.audioSource.volume = prev_vol;
     }
+
+	public void EnableAllColliders()
+	{
+		foreach (Collider __c in transform.GetComponents<Collider>())
+		{
+			__c.enabled = true;
+		}
+		gravity = Physics.gravity.y;
+	}
+
+	public void DisableAllColliders()
+	{
+		foreach (Collider __c in transform.GetComponents<Collider>())
+		{
+			__c.enabled = false;
+		}
+		gravity = 0f;
+	}
     
 }

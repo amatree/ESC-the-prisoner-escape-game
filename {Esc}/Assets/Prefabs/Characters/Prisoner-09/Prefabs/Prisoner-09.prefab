@@ -1781,7 +1781,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4616279298629700}
   - component: {fileID: 95858282887568988}
-  - component: {fileID: 8755123620719000842}
   m_Layer: 0
   m_Name: Prisoner-09
   m_TagString: Untagged
@@ -1828,56 +1827,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &8755123620719000842
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1932689282106248}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad6a618bf6bbe49489d9618740abe938, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 95858282887568988}
-  isSprintingParameterName: isSprinting
-  isWalkingParameterName: isWalking
-  isIdlingParameterName: isIdling
-  isGoingBackwardParameterName: isGoingBackward
-  isStrafingLeftParameterName: isStrafingLeft
-  isStrafingRightParameterName: isStrafingRight
-  isJumpingParameterName: isJumping
-  jumpingSpeedParameterName: jumpingAnimationSpeed
-  walkingSpeedMultiplierParameterName: walkingSpeedMultiplier
-  walkingSpeedMultiplier: 2
-  runningSpeedMultiplierParameterName: runningSpeedMultiplier
-  runningSpeedMultiplier: 1.5
-  jumpSpeedVSHeight:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: -0.033333335
-      outSlope: -0.033333335
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 10
-      value: 0.7
-      inSlope: -0.033333335
-      outSlope: -0.033333335
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  playerController: {fileID: 0}
 --- !u!1 &1939020775386258
 GameObject:
   m_ObjectHideFlags: 0

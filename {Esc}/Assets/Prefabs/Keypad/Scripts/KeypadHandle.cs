@@ -17,6 +17,8 @@ public class KeypadHandle : MonoBehaviour
     public string keypadTooltipText = "Press {0} to use Keypad";
     public string correctTooltipText = "Access GRANTED!!!";
     public string errorTooltipText = "Wrong passcode please try again or press ESC to exit.";
+    public string outOfAttempTooltipText = "Reached maximum attempts allowed! Please try again later.";
+	public Vector3 errorTTOffset = new Vector3(0f, -70f, 0f);
     public bool keepCorrectPasscode = true;
     [ReadOnly] public string inputPasscode = "";
     [ReadOnly] public bool wasUnlocked = false;
@@ -24,6 +26,10 @@ public class KeypadHandle : MonoBehaviour
 
     [Header("Keypad Configuration")]
     public float keypadDownTime = 2.0f;
+	[ReadOnly] public int currentNumAttempts = 0;
+	public int maximumAttempts = 3;
+	public bool enableAttemptsTimeLimit = true;
+	public float resetAttemptsDuration = 3.0f;
     public MeshRenderer keypadMeshRenderer;
     public KeypadMaterials keypadMaterials;
     public KeypadSoundEffects keypadSoundEffects;
@@ -35,15 +41,16 @@ public class KeypadHandle : MonoBehaviour
     [ReadOnly] public bool isLookedAt = false;
     [ReadOnly] public bool isFocused = false;
     
-    KeypadHandle lookingAtKeypad;
-    List<List<Vector3>> keypadPositions;
-    List<Material> allKeyClickedMaterials;
-    PlayerController playerController;
-    bool canTry = true;
-    bool isMouseButton0Hold = false;
+	[Header("Debug")]
+    [ReadOnly] public KeypadHandle lookingAtKeypad;
+    [ReadOnly] public List<List<Vector3>> keypadPositions;
+    [ReadOnly] public List<Material> allKeyClickedMaterials;
+    [ReadOnly] public PlayerController playerController;
+    [ReadOnly] public bool canTry = true;
+    [ReadOnly] public bool isMouseButton0Hold = false;
 
-	Vector3 oldCamLocalPos;
-	string keypadTText;
+	[ReadOnly] public Vector3 oldCamLocalPos;
+	[ReadOnly] public string keypadTText;
     
     // Start is called before the first frame update
     void Start()
@@ -98,8 +105,9 @@ public class KeypadHandle : MonoBehaviour
 
 	void CheckForAccessToggle()
 	{
-        if (isLookedAt && !isFocused && Input.GetKeyDown(accessKey))
+        if (isLookedAt && !isFocused && Input.GetKeyDown(accessKey) && canTry)
         {
+			if (currentNumAttempts >= maximumAttempts) currentNumAttempts = 0;
             hudSettings.SetTooltipTextState(false);
             isFocused = true;
             wasUnlocked = false;
@@ -120,7 +128,7 @@ public class KeypadHandle : MonoBehaviour
 	{
         if (isFocused && canTry)
         {
-            if (Input.GetKeyDown(KeyCode.Escape) || CheckPasscode() || wasUnlocked) {
+            if (Input.GetKeyDown(KeyCode.Escape) || CheckPasscode() || wasUnlocked || currentNumAttempts >= maximumAttempts) {
                 playerInteraction.playerController.RestoreAllControl();
                 playerInteraction.playerCamera.transform.SetParent(playerInteraction.transform);
                 playerInteraction.playerCamera.transform.localPosition = oldCamLocalPos;
@@ -128,6 +136,14 @@ public class KeypadHandle : MonoBehaviour
                 Cursor.visible = false;
                 Cursor.lockState = CursorLockMode.Locked;
 				keypadCollider.enabled = true;
+                hudSettings.ResetText();
+
+                if (currentNumAttempts >= maximumAttempts)
+				{
+					hudSettings.ToggleTooltip(outOfAttempTooltipText, Color.red, errorTTOffset);
+					if (enableAttemptsTimeLimit)
+						StartCoroutine(WaitUntilNextTry(resetAttemptsDuration, false));
+				}
             }
 
             if (wasUnlocked)
@@ -145,21 +161,6 @@ public class KeypadHandle : MonoBehaviour
     {
         if (!isMouseButton0Hold)
         {
-            if (inputPasscode == passcode.ToString())
-            {
-                StartCoroutine(UnlockKeypad());
-                return true;
-            } else if (inputPasscode.Length >= passcode.ToString().Length)
-            {
-                inputPasscode = ""; // reset inputed passcode
-                playerController.PlayFX(keypadSoundEffects.IncorrectSFX, 0.1f, true);
-                hudSettings.MoveTextPosition(0, -50);
-                hudSettings.ToggleTooltip(errorTooltipText, Color.red);
-                hudSettings.MoveTextPosition(0, 50);
-                StartCoroutine(WaitUntilNextTry(1.0f));
-                return false;
-            }
-			
             Vector3 mousePos = Input.mousePosition;
 			if (Input.GetMouseButtonDown(0))
 			{
@@ -175,6 +176,19 @@ public class KeypadHandle : MonoBehaviour
 					}
 				}
 			}
+
+            if (inputPasscode == passcode.ToString())
+            {
+                StartCoroutine(UnlockKeypad());
+                return true;
+            } else if (inputPasscode.Length >= passcode.ToString().Length)
+            {
+                inputPasscode = ""; // reset inputed passcode
+                playerController.PlaySFXOnce(keypadSoundEffects.IncorrectSFX);
+                hudSettings.ToggleTooltip(errorTooltipText, Color.red, errorTTOffset);
+                StartCoroutine(WaitUntilNextTry());
+                return false;
+            }
 
             // mousePos.z = playerInteraction.playerCamera.nearClipPlane;
             // Vector3 screenPos = playerInteraction.playerCamera.ScreenToWorldPoint(mousePos);
@@ -197,23 +211,24 @@ public class KeypadHandle : MonoBehaviour
         return false;
     }
 
-    IEnumerator WaitUntilNextTry(float duration = 1.0f)
+    IEnumerator WaitUntilNextTry(float duration = 1.0f, bool increaseAttempt = true)
     {
         canTry = false;
+		if (increaseAttempt) currentNumAttempts += 1;
         yield return new WaitForSeconds(duration);
         canTry = true;
     }
 
     IEnumerator KeySelection(int key)
     {
-        playerController.PlayFX(keypadSoundEffects.KeypadClickHoldSFX, 0.3f);
+        playerController.PlaySFX(keypadSoundEffects.KeypadClickHoldSFX, 0.3f);
         keypadMeshRenderer.material = allKeyClickedMaterials[key];
         while (Input.GetMouseButton(0))
         {
             isMouseButton0Hold = true;
             yield return null;
         }
-        playerController.PlayFX(keypadSoundEffects.KeypadClickReleaseSFX, 0.4f);
+        playerController.PlaySFX(keypadSoundEffects.KeypadClickReleaseSFX, 0.4f);
         keypadMeshRenderer.material = keypadMaterials.KeypadDefault;
         isMouseButton0Hold = false;
         yield break;
@@ -222,7 +237,7 @@ public class KeypadHandle : MonoBehaviour
     IEnumerator UnlockKeypad(bool playSFX = true)
     {
         if (playSFX) 
-            playerController.PlayFX(keypadSoundEffects.CorrectSFX, 0.1f);
+            playerController.PlaySFXOnce(keypadSoundEffects.CorrectSFX);
         wasUnlocked = true;
         yield return new WaitForSeconds(keypadDownTime);
         wasUnlocked = false;

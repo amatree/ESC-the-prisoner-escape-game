@@ -6,7 +6,6 @@ public class PlayerInteraction : MonoBehaviour
 {
     public PlayerController playerController;
     public Camera playerCamera;
-    public bool debugRays = true;
 
     [Header("Raycast Info")]
     public float eyeSightDistance = 1.0f;
@@ -19,7 +18,10 @@ public class PlayerInteraction : MonoBehaviour
     [ReadOnly] public Transform handRaycastHitTransform;
     [ReadOnly] public string handRaycastHitName;
 
-    // [Header("Other")]
+    [Header("Debug")]
+    public bool debugRays = true;
+	public Color handRayColor = Color.blue;
+	public Color eyeRayColor = Color.red;
     
 
     // Start is called before the first frame update
@@ -58,8 +60,8 @@ public class PlayerInteraction : MonoBehaviour
 
         if (debugRays)
         {
-            Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward.normalized * eyeSightDistance, Color.red);
-            Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward.normalized * handDistance, Color.blue);
+            Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward.normalized * eyeSightDistance, eyeRayColor);
+            Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward.normalized * handDistance, handRayColor);
         }
     }
 

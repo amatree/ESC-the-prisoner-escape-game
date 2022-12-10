@@ -44,15 +44,25 @@ namespace SimonSays {
 	}
 
     [System.Serializable]
-	public struct SimonSaysButtonSequence
+	public class SimonSaysButtonSequence
 	{
-		public float blinkTime;
-		public float delayToNextBlink;
-		public SimonSaysButtons simonSaysButtons;
-		public List<SimonSaysButtonID> Sequence;
+		public float blinkTime = 0.25f;
+		public float delayToNextBlink = 0.1f;
+		public float delayBeforeStart = 0.2f;
+		public float delayAfterPlaying = 0.5f;
 		[ReadOnly] public bool isSequencePlaying;
+		public SimonSaysButtons simonSaysPlates;
+		public List<SimonSaysButtonID> Sequence;
 
 		private Queue<IEnumerator> coroutineQueue;
+
+		public void DefaultSettings()
+		{
+			blinkTime = 0.25f;
+			delayToNextBlink = 0.1f;
+			delayBeforeStart = 0.2f;
+			delayAfterPlaying = 0.5f;
+		}
 
 		public bool Check(List<SimonSaysButtonID> __button_sequence)
 		{
@@ -61,10 +71,12 @@ namespace SimonSays {
 
 		public void Play(MonoBehaviour mono)
 		{
-			coroutineQueue = new Queue<IEnumerator>();
+			isSequencePlaying = true;
+			if (coroutineQueue is null) coroutineQueue = new Queue<IEnumerator>();
+			else coroutineQueue.Clear();
 			foreach (SimonSaysButtonID __btn_id_go in Sequence)
 			{
-				MeshRenderer __meshRenderer = simonSaysButtons.GetButtonMR(__btn_id_go);
+				MeshRenderer __meshRenderer = simonSaysPlates.GetButtonMR(__btn_id_go);
 				coroutineQueue.Enqueue(ToggleEmission(__meshRenderer));
 			}
 
@@ -73,12 +85,13 @@ namespace SimonSays {
 
 		IEnumerator DoCoroutineQueue(MonoBehaviour mono)
 		{
-			isSequencePlaying = true;
+			yield return new WaitForSeconds(delayBeforeStart);
 			while (coroutineQueue.Count > 0) 
 			{
 				yield return mono.StartCoroutine(coroutineQueue.Dequeue());
 				yield return new WaitForSeconds(delayToNextBlink);
 			}
+			yield return new WaitForSeconds(delayAfterPlaying);
 			isSequencePlaying = false;
 		}
 

@@ -558,10 +558,16 @@ MonoBehaviour:
   keypadTooltipText: Press {0} to use Keypad
   correctTooltipText: Access GRANTED!!!
   errorTooltipText: Wrong passcode please try again or press ESC to exit.
+  outOfAttempTooltipText: Reached maximum attempts allowed! Please try again later.
+  errorTTOffset: {x: 0, y: -70, z: 0}
   keepCorrectPasscode: 0
   inputPasscode: 
   wasUnlocked: 0
   keypadDownTime: 2
+  currentNumAttempts: 0
+  maximumAttempts: 3
+  enableAttemptsTimeLimit: 1
+  resetAttemptsDuration: 3
   keypadMeshRenderer: {fileID: 2285326133335460422}
   keypadMaterials:
     KeypadDefault: {fileID: 2100000, guid: ed12086003fe9864ba6ba40b46340e1d, type: 2}
@@ -585,6 +591,13 @@ MonoBehaviour:
   hudSettings: {fileID: 0}
   isLookedAt: 0
   isFocused: 0
+  lookingAtKeypad: {fileID: 0}
+  allKeyClickedMaterials: []
+  playerController: {fileID: 0}
+  canTry: 1
+  isMouseButton0Hold: 0
+  oldCamLocalPos: {x: 0, y: 0, z: 0}
+  keypadTText: 
 --- !u!1 &4090799381879134834
 GameObject:
   m_ObjectHideFlags: 0
