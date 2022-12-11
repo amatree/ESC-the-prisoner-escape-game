@@ -156,8 +156,8 @@ public class KeypadHandle : MonoBehaviour
             {
                 inputPasscode = ""; // reset inputed passcode
                 playerController.PlaySFXOnce(keypadSoundEffects.IncorrectSFX);
-                if (currentNumAttempts + 1 > maximumAttempts) hudSettings.ToggleTooltip(errorTooltipText, Color.red, errorTTOffset);
                 StartCoroutine(WaitUntilNextTry());
+                if (currentNumAttempts < maximumAttempts) hudSettings.ToggleTooltip(errorTooltipText, Color.red, errorTTOffset);
                 return false;
             }
 

@@ -6801,7 +6801,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: PrisonerPrefab
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8867397098376096114, guid: 544cd888b671fb840a3a5b651274ba50, type: 3}
+    - {fileID: 4212769296435195976, guid: 544cd888b671fb840a3a5b651274ba50, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 544cd888b671fb840a3a5b651274ba50, type: 3}
 --- !u!43 &110444004
 Mesh:

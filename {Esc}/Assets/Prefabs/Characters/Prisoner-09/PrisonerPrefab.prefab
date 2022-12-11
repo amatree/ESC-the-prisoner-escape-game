@@ -453,7 +453,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4212769296435195974}
   - component: {fileID: 4212769296435195979}
-  - component: {fileID: 4212769296435195976}
+  - component: {fileID: 2307374821746975107}
   m_Layer: 0
   m_Name: SFX
   m_TagString: Untagged
@@ -572,7 +572,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &4212769296435195976
+--- !u!114 &2307374821746975107
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -581,12 +581,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 4212769296435195975}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b21c4afd3f0fa43408fb5f0933b5ffaa, type: 3}
+  m_Script: {fileID: 11500000, guid: 4d0ce9e91e2618e48b649f402d67afb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   characterAnimator: {fileID: 4261053698244490820}
   audioSource: {fileID: 4212769296435195979}
-  animationHandler: {fileID: 8867397098376096114}
+  animationHandler: {fileID: 2327192842445016134}
   playerController: {fileID: 1779255989071355903}
   enable3D: 0
   walkingClip: {fileID: 8300000, guid: ed5ed0b5ac42d8941b0c68ff54f63cb2, type: 3}
@@ -594,6 +594,7 @@ MonoBehaviour:
   landingClip: {fileID: 8300000, guid: d137fb140138b4fa4836532d2cca1f0c, type: 3}
   jumpingClip: {fileID: 8300000, guid: acf40a6b487874ce1a6a27370c82f68f, type: 3}
   didJump: 0
+  isInAirWithoutJumping: 0
 --- !u!1 &6490909823288557781
 GameObject:
   m_ObjectHideFlags: 0
@@ -1295,6 +1296,17 @@ PrefabInstance:
       objectReference: {fileID: 1779255989071355903}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 12b029f5181aa314b9d1d61d3f2f6443, type: 3}
+--- !u!114 &2327192842445016134 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1890696924608373854, guid: 12b029f5181aa314b9d1d61d3f2f6443, type: 3}
+  m_PrefabInstance: {fileID: 4212769294929422360}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4210899323244768144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18a3439cc906da84ea92b4b9731ee52d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &4208232466319116380 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4616279298629700, guid: 12b029f5181aa314b9d1d61d3f2f6443, type: 3}
@@ -1305,59 +1317,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1932689282106248, guid: 12b029f5181aa314b9d1d61d3f2f6443, type: 3}
   m_PrefabInstance: {fileID: 4212769294929422360}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8867397098376096114
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4210899323244768144}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d50621fb1e4db3447b30e9d13f58c42d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 4261053698244490820}
-  isSprintingParameterName: isSprinting
-  isWalkingParameterName: isWalking
-  isSlowWalkingParameterName: isSlowWalking
-  isIdlingParameterName: isIdling
-  isGoingBackwardParameterName: isGoingBackward
-  isStrafingLeftParameterName: isStrafingLeft
-  isStrafingRightParameterName: isStrafingRight
-  isJumpingParameterName: isJumping
-  jumpingSpeedParameterName: jumpingAnimationSpeed
-  slowWalkingSpeedMultiplierParameterName: slowWalkingSpeedMultiplier
-  slowWalkingSpeedMultiplier: 1
-  walkingSpeedMultiplierParameterName: walkingSpeedMultiplier
-  walkingSpeedMultiplier: 2
-  runningSpeedMultiplierParameterName: runningSpeedMultiplier
-  runningSpeedMultiplier: 2
-  jumpSpeedVSHeight:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: -0.01795578
-      value: 1.73349
-      inSlope: -1.3446761
-      outSlope: -1.3446761
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1.1063232
-      value: 0.22169876
-      inSlope: -1.3446761
-      outSlope: -1.3446761
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  playerController: {fileID: 1779255989071355903}
 --- !u!95 &4261053698244490820 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 95858282887568988, guid: 12b029f5181aa314b9d1d61d3f2f6443, type: 3}

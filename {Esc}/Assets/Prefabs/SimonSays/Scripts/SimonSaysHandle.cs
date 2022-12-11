@@ -129,8 +129,8 @@ public class SimonSaysHandle : MonoBehaviour
 			{
 				inputSequence.Clear(); // reset input sequence
 				playerController.PlaySFXOnce(incorrectSFX);
-				if (currentNumAttempts + 1 > maximumAttempts) hudSettings.ToggleTooltip(errorTooltipText, Color.red, errorTTOffset);
 				StartCoroutine(WaitUntilNextTry());
+				if (currentNumAttempts < maximumAttempts) hudSettings.ToggleTooltip(errorTooltipText, Color.red, errorTTOffset);
 				return false;
 			}
 		}
