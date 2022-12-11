@@ -63,3 +63,7 @@ crashlytics-build.properties
 
 # macOS
 *.DS_Store
+
+# imported assets
+/Assets/Imported Assets
+
