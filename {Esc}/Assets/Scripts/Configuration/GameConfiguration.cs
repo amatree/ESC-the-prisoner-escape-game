@@ -58,7 +58,7 @@ public class GameConfiguration : MonoBehaviour
 		}
 		if (characterFootstep is not null)
 		{
-			characterFootstep.audioSource.volume = gameDataManager.SFXVolume;
+			characterFootstep.sfxSource.volume = gameDataManager.SFXVolume;
 		}
     }
 }

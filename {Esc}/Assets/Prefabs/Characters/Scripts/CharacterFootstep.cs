@@ -6,6 +6,7 @@ public class CharacterFootstep : MonoBehaviour
 {
 	[Header("Dependencies")]
 	public Animator characterAnimator;
+	public AudioSource sfxSource;
 	public AudioSource audioSource;
 	public CharacterAnimationHandle animationHandler;
 	public PlayerController playerController;
@@ -21,6 +22,11 @@ public class CharacterFootstep : MonoBehaviour
 
 	Coroutine footstepClipC;
 
+	[Header("Settings")]
+	public float landingSFXInterval = 1.0f;
+
+	[Header("Debug")]
+	[ReadOnly] public float timeInAirWithoutJumping = 0f;  
 	[ReadOnly] public bool didJump;
 	[ReadOnly] public bool isInAirWithoutJumping;
 
@@ -29,8 +35,11 @@ public class CharacterFootstep : MonoBehaviour
     {
 		if (playerController is null)
 			playerController = GameObject.FindObjectOfType<PlayerController>();
-        if (enable3D && audioSource is not null)
+        if (enable3D && sfxSource is not null)
+		{
 			audioSource.spatialBlend = 1.0f;
+			sfxSource.spatialBlend = 1.0f;
+		}
     }
 
     // Update is called once per frame
@@ -55,9 +64,8 @@ public class CharacterFootstep : MonoBehaviour
 			if (playerController.isJumping)
 			{
 				StartCoroutine(JumpAndLand());
-			} else if (!playerController.isGrounded && !playerController.isJumping)
+			} else if (!playerController.isGrounded && !playerController.isJumping && !playerController.isOnSlope && !isInAirWithoutJumping)
 			{
-				isInAirWithoutJumping = true;
 				StartCoroutine(Landing());
 			}
 		}
@@ -65,13 +73,35 @@ public class CharacterFootstep : MonoBehaviour
 
 	IEnumerator Landing()
 	{
-		if (!playerController.isGrounded && isInAirWithoutJumping)
+		if (!isInAirWithoutJumping && !didJump)
 		{
-			while (!playerController.isGrounded)
-				yield return new WaitForEndOfFrame();
+			isInAirWithoutJumping = true;
+			float __t = 0f;
+			while (__t < landingSFXInterval)
+			{
+				if (playerController.isGrounded || didJump)
+				{
+					isInAirWithoutJumping = false;
+					// print("aired but not enough time to land " + __t);
+					yield break;
+				}
 
-			audioSource.PlayOneShot(landingClip, 0.01f);
+				__t += Time.deltaTime;
+				timeInAirWithoutJumping = __t;
+				yield return null;
+			}
+			
+			while (!playerController.isGrounded)
+			{
+				__t += Time.deltaTime;
+				timeInAirWithoutJumping = __t;
+				yield return null;
+			}
+
+			sfxSource.PlayOneShot(landingClip, 0.1f);
+			// print("aired and landed " + __t);
 			isInAirWithoutJumping = false;
+
 		}
 	}
 
@@ -81,14 +111,14 @@ public class CharacterFootstep : MonoBehaviour
 		{
 			didJump = true;
 			audioSource.Pause();
-			audioSource.PlayOneShot(jumpingClip, 0.2f);
+			sfxSource.PlayOneShot(jumpingClip, 0.2f);
 		}
 
 		while (!playerController.isGrounded)
 			yield return new WaitForEndOfFrame();
 
 		didJump = false;
-		audioSource.PlayOneShot(landingClip, 0.01f);
+		sfxSource.PlayOneShot(landingClip, 0.01f);
 		audioSource.UnPause();
 	}
 

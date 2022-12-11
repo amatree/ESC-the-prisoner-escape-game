@@ -63,6 +63,7 @@ public class PlayerController : MonoBehaviour
     [ReadOnly] public float horizontalAxis;
 
     [ReadOnly] public bool isGrounded;
+    // [ReadOnly] public bool isGrounded2;
     [ReadOnly] public bool isJumping;
     [ReadOnly] public bool isWalkingSlow;
     [ReadOnly] public bool isSprinting;
@@ -119,10 +120,10 @@ public class PlayerController : MonoBehaviour
             if (collisionContactCount > 1 && !isGrounded)
                 finalSpeed = 0f;
 
-            // RaycastHit ray = RayCastFromFeet(Vector3.down * groundDistace, groundDistace);
-            // Debug.DrawRay(groundCheck.position, Vector3.down * groundDistace, Color.cyan);
-            // isGrounded = ray.transform is not null && (int)Mathf.Pow(2, ray.transform.gameObject.layer) == groundMask;
-            isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+            // RaycastHit ray = RayCastFromFeet(Vector3.down * groundDistance, groundDistance);
+            // Debug.DrawRay(groundCheck.position, Vector3.down * groundDistance, Color.cyan);
+            // isGrounded2 = ray.transform is not null && (int)Mathf.Pow(2, ray.transform.gameObject.layer) == groundMask;
+            isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance + 0.01f, groundMask);
 
             // rotation
             mouseX += Input.GetAxis("Mouse X") * mouseSensitivity * 20f * Time.fixedDeltaTime;
@@ -203,7 +204,7 @@ public class PlayerController : MonoBehaviour
 
 	void StepHandle() {
 		Vector3 movingDirection = moveVector.normalized;
-		Vector3 stepVec = Quaternion.Euler(transform.eulerAngles) * Vector3.forward * maxStepSize;
+		Vector3 stepVec = movingDirection * maxStepSize;
 		stepVec += transform.position + new Vector3(0, maxStepHeight, 0);
 		float length = maxStepHeight - pGroundDistance;
 		
@@ -215,7 +216,10 @@ public class PlayerController : MonoBehaviour
 		}
 		if (Physics.Raycast(stepVec, Vector3.down, out RaycastHit stepHit, length))
 		{
-			Debug.DrawRay(stepHit.point, Vector3.down * length, Color.magenta);
+			if (stairDebugRays) 
+			{
+				Debug.DrawRay(stepHit.point, Vector3.down * length, Color.magenta);
+			}
 			if (stepHit.point.y - transform.position.y <= maxStepHeight)
 			{
 				if (finalSpeed > 0f && !isJumping)
@@ -224,10 +228,8 @@ public class PlayerController : MonoBehaviour
 						groundDistance = pGroundDistance + maxStepHeight;
 					transform.position = new Vector3(transform.position.x, stepHit.point.y, transform.position.z);
 					// rigidBody.AddForce(Vector3.up * Mathf.Sqrt(-2f * jumpHeight / gravity) * (maxStepHeight + (moveVector.magnitude / 240f)), ForceMode.Impulse);
+
 				}
-			} else
-			{
-				rigidBody.AddForce(new Vector3(0, gravity, 0), ForceMode.Impulse);
 			}
 		} else {
 			if (groundDistance != pGroundDistance)

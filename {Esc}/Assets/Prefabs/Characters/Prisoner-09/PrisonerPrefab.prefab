@@ -86,6 +86,7 @@ MonoBehaviour:
   isOnSlope: 0
   maxSlopeAngle: 35
   currSlopeAngle: 0
+  groundDistanceChanged: 0
   stairDebugRays: 1
   maxStepHeight: 0.3
   maxStepSize: 0.35
@@ -98,12 +99,12 @@ MonoBehaviour:
   airAccelerationMultiplier: 0.7
   airFrictionMultiplier: 2
   airDrag: 0.9
-  audioSource: {fileID: 6490909825010470351}
   groundCheck: {fileID: 1779255990486924252}
   groundMask:
     serializedVersion: 2
     m_Bits: 512
   groundDistance: 0.03
+  audioSource: {fileID: 6490909825010470351}
   moveVector: {x: 0, y: 0, z: 0}
   moveMagnitude: 0
   finalSpeed: 0
@@ -456,8 +457,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4212769296435195974}
-  - component: {fileID: 4212769296435195979}
   - component: {fileID: 2307374821746975107}
+  - component: {fileID: 3454295555942972920}
+  - component: {fileID: 4212769296435195979}
   m_Layer: 0
   m_Name: SFX
   m_TagString: Untagged
@@ -480,6 +482,128 @@ Transform:
   m_Father: {fileID: 1779255989071355897}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2307374821746975107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4212769296435195975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d0ce9e91e2618e48b649f402d67afb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterAnimator: {fileID: 4261053698244490820}
+  sfxSource: {fileID: 3454295555942972920}
+  audioSource: {fileID: 4212769296435195979}
+  animationHandler: {fileID: 2327192842445016134}
+  playerController: {fileID: 1779255989071355903}
+  enable3D: 0
+  walkingClip: {fileID: 8300000, guid: ed5ed0b5ac42d8941b0c68ff54f63cb2, type: 3}
+  runningClip: {fileID: 8300000, guid: 8ae56723b21ce9e48b51a3d78c9d29f0, type: 3}
+  landingClip: {fileID: 8300000, guid: d137fb140138b4fa4836532d2cca1f0c, type: 3}
+  jumpingClip: {fileID: 8300000, guid: acf40a6b487874ce1a6a27370c82f68f, type: 3}
+  landingSFXInterval: 0.2
+  timeInAirWithoutJumping: 0
+  didJump: 0
+  isInAirWithoutJumping: 0
+--- !u!82 &3454295555942972920
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4212769296435195975}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 2.4812436
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!82 &4212769296435195979
 AudioSource:
   m_ObjectHideFlags: 0
@@ -576,29 +700,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &2307374821746975107
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4212769296435195975}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d0ce9e91e2618e48b649f402d67afb6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterAnimator: {fileID: 4261053698244490820}
-  audioSource: {fileID: 4212769296435195979}
-  animationHandler: {fileID: 2327192842445016134}
-  playerController: {fileID: 1779255989071355903}
-  enable3D: 0
-  walkingClip: {fileID: 8300000, guid: ed5ed0b5ac42d8941b0c68ff54f63cb2, type: 3}
-  runningClip: {fileID: 8300000, guid: 8ae56723b21ce9e48b51a3d78c9d29f0, type: 3}
-  landingClip: {fileID: 8300000, guid: d137fb140138b4fa4836532d2cca1f0c, type: 3}
-  jumpingClip: {fileID: 8300000, guid: acf40a6b487874ce1a6a27370c82f68f, type: 3}
-  didJump: 0
-  isInAirWithoutJumping: 0
 --- !u!1 &6490909823288557781
 GameObject:
   m_ObjectHideFlags: 0
