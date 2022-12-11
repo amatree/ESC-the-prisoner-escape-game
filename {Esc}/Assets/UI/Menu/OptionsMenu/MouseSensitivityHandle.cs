@@ -17,8 +17,10 @@ public class MouseSensitivityHandle : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+		if (gameConfiguration is null)
+			gameConfiguration = GameObject.FindObjectOfType<GameConfiguration>();
+
         gameDataManager = gameConfiguration.gameDataManager;
-        // mouseSensitivitySlider.onValueChanged.AddListener(delegate {SaveData();});
         mouseSensitivitySlider.value = gameDataManager.mouseSensitivity;
         valueText.text = "Mouse Sensitivity: " + mouseSensitivitySlider.value.ToString("F1");
     }

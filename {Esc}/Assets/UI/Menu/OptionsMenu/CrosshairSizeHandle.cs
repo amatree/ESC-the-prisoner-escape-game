@@ -17,8 +17,10 @@ public class CrosshairSizeHandle : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+		if (gameConfiguration is null)
+			gameConfiguration = GameObject.FindObjectOfType<GameConfiguration>();
+
         gameDataManager = gameConfiguration.gameDataManager;
-        // crosshairSizeSlider.onValueChanged.AddListener(delegate {SaveData();});
         crosshairSizeSlider.value = gameDataManager.crossHairSize;
         valueText.text = "Crosshair Size: " + crosshairSizeSlider.value.ToString("F1");
     }

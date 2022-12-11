@@ -27,6 +27,8 @@ public class CharacterFootstep : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+		if (playerController is null)
+			playerController = GameObject.FindObjectOfType<PlayerController>();
         if (enable3D && audioSource is not null)
 			audioSource.spatialBlend = 1.0f;
     }

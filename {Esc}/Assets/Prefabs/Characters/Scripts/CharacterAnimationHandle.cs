@@ -27,7 +27,8 @@ public class CharacterAnimationHandle : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-		
+		if (playerController is null)
+			playerController = GameObject.FindObjectOfType<PlayerController>();
     }
 
     // Update is called once per frame

@@ -17,8 +17,10 @@ public class SFXSliderHandle : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+		if (gameConfiguration is null)
+			gameConfiguration = GameObject.FindObjectOfType<GameConfiguration>();
+
         gameDataManager = gameConfiguration.gameDataManager;
-        // audioSlider.onValueChanged.AddListener(delegate {SaveData();});
         SFXSlider.value = gameDataManager.SFXVolume;
         valueText.text = "SFX: " + SFXSlider.value.ToString("F1");
     }

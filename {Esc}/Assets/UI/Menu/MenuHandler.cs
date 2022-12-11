@@ -48,8 +48,8 @@ public class MenuHandler : MonoBehaviour
                 b.onClick.AddListener(ReturnToMainMenu);
         }
 
-        if (gameConfiguration is null)
-            gameConfiguration = transform.GetComponentInChildren<GameConfiguration>();
+		if (gameConfiguration is null)
+			gameConfiguration = GameObject.FindObjectOfType<GameConfiguration>();
 
         mainMenuUI.SetActive(false);
 

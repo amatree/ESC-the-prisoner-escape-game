@@ -22,6 +22,12 @@ public class GameConfiguration : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+		if (playerController is null)
+			playerController = GameObject.FindObjectOfType<PlayerController>();
+		if (characterFootstep is null)
+			characterFootstep = GameObject.FindObjectOfType<CharacterFootstep>();
+		if (hudSettings is null)
+			hudSettings = GameObject.FindObjectOfType<HUDSettings>();
 		
     }
 

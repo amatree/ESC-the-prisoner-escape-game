@@ -23,6 +23,8 @@ public class HUDSettings : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+		if (gameConfiguration is null)
+			gameConfiguration = GameObject.FindObjectOfType<GameConfiguration>();
         prevCrosshairSize = crossHairSize;
     }
 

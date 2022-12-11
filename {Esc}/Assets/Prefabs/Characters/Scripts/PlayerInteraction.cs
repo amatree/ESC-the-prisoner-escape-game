@@ -27,6 +27,8 @@ public class PlayerInteraction : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+		if (playerController is null)
+			playerController = GameObject.FindObjectOfType<PlayerController>();
         playerCamera = playerController.playerCamera is null ? Camera.main : playerController.playerCamera;
         eyeRaycastHitTransform = this.transform;
         handRaycastHitTransform = this.transform;

@@ -55,6 +55,10 @@ public class KeypadHandle : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+		if (playerInteraction is null)
+			playerInteraction = GameObject.FindObjectOfType<PlayerInteraction>();
+		if (hudSettings is null)
+			hudSettings = GameObject.FindObjectOfType<HUDSettings>();
         playerController = playerInteraction.playerController;
 
         // if (characterModel == CharacterModel.CapsuleCharacter) GenerateKeypadPositions__C(); // for capsule character
@@ -124,39 +128,6 @@ public class KeypadHandle : MonoBehaviour
         }
 	}
 
-	void CheckForAccess()
-	{
-        if (isFocused && canTry)
-        {
-            if (Input.GetKeyDown(KeyCode.Escape) || CheckPasscode() || wasUnlocked || currentNumAttempts >= maximumAttempts) {
-                playerInteraction.playerController.RestoreAllControl();
-                playerInteraction.playerCamera.transform.SetParent(playerInteraction.transform);
-                playerInteraction.playerCamera.transform.localPosition = oldCamLocalPos;
-                isFocused = false;
-                Cursor.visible = false;
-                Cursor.lockState = CursorLockMode.Locked;
-				keypadCollider.enabled = true;
-                hudSettings.ResetText();
-
-                if (currentNumAttempts >= maximumAttempts)
-				{
-					hudSettings.ToggleTooltip(outOfAttempTooltipText, Color.red, errorTTOffset);
-					if (enableAttemptsTimeLimit)
-						StartCoroutine(WaitUntilNextTry(resetAttemptsDuration, false));
-				}
-            }
-
-            if (wasUnlocked)
-            {
-                // correct actions here
-                hudSettings.ToggleTooltip(correctTooltipText, Color.green);
-
-                // reset passcode if specified
-                if (!keepCorrectPasscode) inputPasscode = "";
-            }
-        }
-	}
-
     bool CheckPasscode()
     {
         if (!isMouseButton0Hold)
@@ -185,7 +156,7 @@ public class KeypadHandle : MonoBehaviour
             {
                 inputPasscode = ""; // reset inputed passcode
                 playerController.PlaySFXOnce(keypadSoundEffects.IncorrectSFX);
-                hudSettings.ToggleTooltip(errorTooltipText, Color.red, errorTTOffset);
+                if (currentNumAttempts + 1 > maximumAttempts) hudSettings.ToggleTooltip(errorTooltipText, Color.red, errorTTOffset);
                 StartCoroutine(WaitUntilNextTry());
                 return false;
             }
@@ -210,6 +181,45 @@ public class KeypadHandle : MonoBehaviour
         }
         return false;
     }
+
+	void CheckForAccess()
+	{
+        if (isFocused && canTry)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape) || CheckPasscode() || wasUnlocked || currentNumAttempts >= maximumAttempts) {
+                if (currentNumAttempts >= maximumAttempts)
+				{
+					hudSettings.ToggleTooltip(outOfAttempTooltipText, Color.red, errorTTOffset);
+					if (enableAttemptsTimeLimit)
+						StartCoroutine(WaitUntilNextTry(resetAttemptsDuration, false));
+				}
+				StartCoroutine(EndOfAttempt());
+            }
+
+            if (wasUnlocked)
+            {
+                // correct actions here
+                hudSettings.ToggleTooltip(correctTooltipText, Color.green);
+
+                // reset passcode if specified
+                if (!keepCorrectPasscode) inputPasscode = "";
+            }
+        }
+	}
+
+	IEnumerator EndOfAttempt()
+	{
+		while (hudSettings.isLocked)
+			yield return null;
+		playerInteraction.playerController.RestoreAllControl();
+		playerInteraction.playerCamera.transform.SetParent(playerInteraction.transform);
+		playerInteraction.playerCamera.transform.localPosition = oldCamLocalPos;
+		isFocused = false;
+		Cursor.visible = false;
+		Cursor.lockState = CursorLockMode.Locked;
+		keypadCollider.enabled = true;
+		hudSettings.ResetText();
+	}
 
     IEnumerator WaitUntilNextTry(float duration = 1.0f, bool increaseAttempt = true)
     {

@@ -18,6 +18,7 @@ public class SimonSaysHandle : MonoBehaviour
 
 	[Header("Configuration")]
 	public bool playOnStart = false;
+	public bool playOnFirstAccess = true;
 	public bool playOnAccess = false;
 	public bool defaultSettings = false;
 	[ReadOnly] public int currentNumAttempts = 0;
@@ -54,9 +55,13 @@ public class SimonSaysHandle : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+		if (playerInteraction is null)
+			playerInteraction = GameObject.FindObjectOfType<PlayerInteraction>();
+		if (hudSettings is null)
+			hudSettings = GameObject.FindObjectOfType<HUDSettings>();
 		playerController = playerInteraction.playerController;
 		deviceTText = deviceTooltipText.Contains("{0}") ? string.Format(deviceTooltipText, accessKey) : deviceTooltipText;
-		if (defaultSettings) lockingButtonSequence.DefaultSettings();
+		if (defaultSettings) lockingButtonSequence.DefaultSettings(this);
 		if (playOnStart) PlaySequence();
     }
 
@@ -91,7 +96,7 @@ public class SimonSaysHandle : MonoBehaviour
 	public void PlaySequence()
 	{
 		if (!lockingButtonSequence.isSequencePlaying)
-			lockingButtonSequence.Play(this);
+			lockingButtonSequence.PlayAll();
 	}
 
 	bool CheckSequence()
@@ -102,7 +107,7 @@ public class SimonSaysHandle : MonoBehaviour
 				PlaySequence();
 
 			Vector3 mousePos = Input.mousePosition;
-			if (Input.GetMouseButtonDown(0))
+			if (Input.GetMouseButtonDown(0) && !lockingButtonSequence.isSequencePlaying)
 			{
 				Ray ray = playerInteraction.playerCamera.ScreenPointToRay(mousePos);
 				if (Physics.Raycast(ray, out RaycastHit hit))
@@ -124,7 +129,7 @@ public class SimonSaysHandle : MonoBehaviour
 			{
 				inputSequence.Clear(); // reset input sequence
 				playerController.PlaySFXOnce(incorrectSFX);
-				hudSettings.ToggleTooltip(errorTooltipText, Color.red, errorTTOffset);
+				if (currentNumAttempts + 1 > maximumAttempts) hudSettings.ToggleTooltip(errorTooltipText, Color.red, errorTTOffset);
 				StartCoroutine(WaitUntilNextTry());
 				return false;
 			}
@@ -135,6 +140,7 @@ public class SimonSaysHandle : MonoBehaviour
 	IEnumerator ButtonAnimation(SimonSaysButtonHandle buttonHandle)
 	{
 		buttonHandle.PushAndHold();
+		lockingButtonSequence.EnableEmission(buttonHandle);
 		playerController.PlaySFX(buttonPushSFX, 0.3f);
 		while (Input.GetMouseButton(0)) // holding down left mouse
 		{
@@ -143,6 +149,7 @@ public class SimonSaysHandle : MonoBehaviour
 		}
 		isMouseButton0Hold = false;
 		buttonHandle.Release();
+		lockingButtonSequence.DisableEmission(buttonHandle);
 		playerController.PlaySFX(buttonReleaseSFX, 0.3f);
 		inputSequence.Add(buttonHandle.buttonID);
 	}
@@ -165,7 +172,7 @@ public class SimonSaysHandle : MonoBehaviour
 			if (disableCharacterCollider) playerController.DisableAllColliders();
 			Cursor.visible = true;
 			Cursor.lockState = CursorLockMode.None;
-			if (playOnAccess) PlaySequence();
+			if (playOnFirstAccess) PlaySequence();
         }
 	}
 
@@ -182,22 +189,13 @@ public class SimonSaysHandle : MonoBehaviour
         if (isFocused && canTry)
         {
             if (Input.GetKeyDown(KeyCode.Escape) || CheckSequence() || wasUnlocked || currentNumAttempts >= maximumAttempts) {
-                playerInteraction.playerController.RestoreAllControl();
-                playerInteraction.playerCamera.transform.SetParent(playerInteraction.transform);
-                playerInteraction.playerCamera.transform.localPosition = oldCamLocalPos;
-                isFocused = false;
-                Cursor.visible = false;
-                Cursor.lockState = CursorLockMode.Locked;
-				if (disableCharacterCollider) playerController.EnableAllColliders();
-				inputSequence.Clear();
-                hudSettings.ResetText();
-
                 if (currentNumAttempts >= maximumAttempts)
 				{
 					hudSettings.ToggleTooltip(outOfAttempTooltipText, Color.red, errorTTOffset);
 					if (enableAttemptsTimeLimit)
 						StartCoroutine(WaitUntilNextTry(resetAttemptsDuration, false));
 				}
+				StartCoroutine(EndOfAttempt());
             }
 
             if (wasUnlocked)
@@ -206,5 +204,20 @@ public class SimonSaysHandle : MonoBehaviour
                 hudSettings.ToggleTooltip(correctTooltipText, Color.green);
             }
         }
+	}
+
+	IEnumerator EndOfAttempt()
+	{
+		while (hudSettings.isLocked)
+			yield return null;
+		playerInteraction.playerController.RestoreAllControl();
+		playerInteraction.playerCamera.transform.SetParent(playerInteraction.transform);
+		playerInteraction.playerCamera.transform.localPosition = oldCamLocalPos;
+		isFocused = false;
+		Cursor.visible = false;
+		Cursor.lockState = CursorLockMode.Locked;
+		if (disableCharacterCollider) playerController.EnableAllColliders();
+		inputSequence.Clear();
+		hudSettings.ResetText();
 	}
 }
