@@ -86,6 +86,9 @@ MonoBehaviour:
   isOnSlope: 0
   maxSlopeAngle: 35
   currSlopeAngle: 0
+  stairDebugRays: 1
+  maxStepHeight: 0.3
+  maxStepSize: 0.35
   playerAnimation: {fileID: 0}
   playerCamera: {fileID: 1779255990205459344}
   mouseSensitivity: 5
@@ -119,6 +122,7 @@ MonoBehaviour:
   mouseX: 0
   prev_mouseX: 0
   mouseY: 0
+  pGroundDistance: 0
   dGroundDistance: 0
 --- !u!114 &6490909823595452661
 MonoBehaviour:
@@ -250,7 +254,7 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.25
-  m_Height: 2
+  m_Height: 2.01
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!136 &7176997737464294843
@@ -1290,6 +1294,50 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: a9ef5d654e9539741875b4921d26f117, type: 2}
+    - target: {fileID: 1890696924608373854, guid: 12b029f5181aa314b9d1d61d3f2f6443, type: 3}
+      propertyPath: playerController
+      value: 
+      objectReference: {fileID: 1779255989071355903}
+    - target: {fileID: 1890696924608373854, guid: 12b029f5181aa314b9d1d61d3f2f6443, type: 3}
+      propertyPath: runningSpeedMultiplier
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1890696924608373854, guid: 12b029f5181aa314b9d1d61d3f2f6443, type: 3}
+      propertyPath: walkingSpeedMultiplier
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1890696924608373854, guid: 12b029f5181aa314b9d1d61d3f2f6443, type: 3}
+      propertyPath: jumpSpeedVSHeight.m_Curve.Array.data[0].time
+      value: 0.017682262
+      objectReference: {fileID: 0}
+    - target: {fileID: 1890696924608373854, guid: 12b029f5181aa314b9d1d61d3f2f6443, type: 3}
+      propertyPath: jumpSpeedVSHeight.m_Curve.Array.data[1].time
+      value: 3.682495
+      objectReference: {fileID: 0}
+    - target: {fileID: 1890696924608373854, guid: 12b029f5181aa314b9d1d61d3f2f6443, type: 3}
+      propertyPath: jumpSpeedVSHeight.m_Curve.Array.data[0].value
+      value: 1.2054529
+      objectReference: {fileID: 0}
+    - target: {fileID: 1890696924608373854, guid: 12b029f5181aa314b9d1d61d3f2f6443, type: 3}
+      propertyPath: jumpSpeedVSHeight.m_Curve.Array.data[1].value
+      value: 0.98682404
+      objectReference: {fileID: 0}
+    - target: {fileID: 1890696924608373854, guid: 12b029f5181aa314b9d1d61d3f2f6443, type: 3}
+      propertyPath: jumpSpeedVSHeight.m_Curve.Array.data[0].inSlope
+      value: -0.05965622
+      objectReference: {fileID: 0}
+    - target: {fileID: 1890696924608373854, guid: 12b029f5181aa314b9d1d61d3f2f6443, type: 3}
+      propertyPath: jumpSpeedVSHeight.m_Curve.Array.data[1].inSlope
+      value: -0.05965622
+      objectReference: {fileID: 0}
+    - target: {fileID: 1890696924608373854, guid: 12b029f5181aa314b9d1d61d3f2f6443, type: 3}
+      propertyPath: jumpSpeedVSHeight.m_Curve.Array.data[0].outSlope
+      value: -0.05965622
+      objectReference: {fileID: 0}
+    - target: {fileID: 1890696924608373854, guid: 12b029f5181aa314b9d1d61d3f2f6443, type: 3}
+      propertyPath: jumpSpeedVSHeight.m_Curve.Array.data[1].outSlope
+      value: -0.05965622
+      objectReference: {fileID: 0}
     - target: {fileID: 8755123620719000842, guid: 12b029f5181aa314b9d1d61d3f2f6443, type: 3}
       propertyPath: playerController
       value: 

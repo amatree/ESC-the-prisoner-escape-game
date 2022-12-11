@@ -20,12 +20,17 @@ public class PlayerController : MonoBehaviour
     public KeyCode jumpKey = KeyCode.Space;
     [Tooltip("Disabled cuz it broke animation :3")] [ReadOnly] public bool enableDoubleJump = false;
 
-	[Header("Slope Handling")]
+	[Header("Slope Handling (integrated with Stair Handling)")]
 	[ReadOnly] public bool isOnSlope;
-	public float maxSlopeAngle = 35.0f;
+	[ReadOnly, Range(0f, 90f)] public float maxSlopeAngle = 35.0f;
 	[ReadOnly] public float currSlopeAngle;
 	[ReadOnly] public RaycastHit slopeHit;
-	bool groundDistanceChanged = false;
+	[ReadOnly] public bool groundDistanceChanged = false;
+
+	[Header("Stair Handling")]
+	public bool stairDebugRays = true;
+	[Range(0f, 1f)] public float maxStepHeight = 0.3f;
+	[Range(0f, 1f)] public float maxStepSize = 0.25f;
 
     [Header("Animation")]
     public Animator playerAnimation;
@@ -42,13 +47,13 @@ public class PlayerController : MonoBehaviour
     [Range(0f, 2f)] public float airFrictionMultiplier = 2.0f;
     [Range(0.01f, 1f)] public float airDrag = 0.5f;
 
-    [Header("Audio")]
-    public AudioSource audioSource;
-
-    [Header("Other")]
+    [Header("Ground")]
     public Transform groundCheck;
     public LayerMask groundMask;
     public float groundDistance = 0.03f;
+
+    [Header("Audio")]
+    public AudioSource audioSource;
 
 	[Header("Debug")]
 	[ReadOnly] public Vector3 moveVector;
@@ -75,6 +80,7 @@ public class PlayerController : MonoBehaviour
     [ReadOnly] public float prev_mouseX;
     [ReadOnly] public float mouseY;
 
+	[ReadOnly] public float pGroundDistance;
 	[ReadOnly] public float dGroundDistance;
 
     // Start is called before the first frame update
@@ -91,6 +97,7 @@ public class PlayerController : MonoBehaviour
         playerCamera = playerCamera == null ? GetComponentInChildren<Camera>() : playerCamera;
         Cursor.lockState = CursorLockMode.Locked;
 
+		pGroundDistance = groundDistance;
 		dGroundDistance = groundDistance;
     }
 
@@ -162,23 +169,12 @@ public class PlayerController : MonoBehaviour
             // }
 
 			// single jump
-			if (Input.GetKey(jumpKey) && isGrounded)
+			if (Input.GetKey(jumpKey) && isGrounded && !isJumping)
 			{
 				StartCoroutine(ToggleJump(jumpHeight + (moveVector.magnitude / 320f)));
 			}
 
-
-
-			// slope handling
-			isOnSlope = OnSlope();
-			if (isOnSlope)
-			{
-				// TODO: fix slope bounce
-				groundDistance = slopeHit.distance;
-				groundDistanceChanged = true;
-				if (isGrounded) rigidBody.AddForce(GetSlopeMoveDirection() * finalSpeed * 2.5f, ForceMode.Acceleration);
-				rigidBody.AddForce(new Vector3(0, - currSlopeAngle * finalSpeed / maxSlopeAngle, 0), ForceMode.Acceleration);
-			} else if (isGrounded && rigidBody.velocity.magnitude != 0)
+			if (isGrounded && rigidBody.velocity.magnitude != 0)
 			{
                 AddForce(moveVector * accelerationMultiplier - moveVector * frictionMultiplier, ForceMode.Acceleration);
 			} else if (!isGrounded && rigidBody.velocity.magnitude != 0)
@@ -190,14 +186,54 @@ public class PlayerController : MonoBehaviour
 				groundDistanceChanged = false;
 			}
             
+			// stair & slope handling
+			StepHandle();
+
             // animation
             // playerAnimation.SetBool("isRunning", isSprinting && move.magnitude != 0);
             // playerAnimation.SetBool("isWalking", move.magnitude != 0);
         }
 
         // gravity
-		rigidBody.AddForce(new Vector3(0, gravity, 0), ForceMode.Acceleration);
+		if (transform.position.y > 0f) rigidBody.AddForce(new Vector3(0, gravity, 0), ForceMode.Acceleration);
+		
+		// if (transform.position.y < 0f) rigidBody.AddForce(new Vector3(0, -gravity, 0), ForceMode.Acceleration);
+		// if (transform.position.y < 0f) transform.position = new Vector3(transform.position.x, 0, transform.position.z);
     }
+
+	void StepHandle() {
+		Vector3 movingDirection = moveVector.normalized;
+		Vector3 stepVec = Quaternion.Euler(transform.eulerAngles) * Vector3.forward * maxStepSize;
+		stepVec += transform.position + new Vector3(0, maxStepHeight, 0);
+		float length = maxStepHeight - pGroundDistance;
+		
+		if (stairDebugRays)
+		{
+			Debug.DrawRay(movingDirection, Vector3.forward * length, Color.blue);
+			Debug.DrawRay(movingDirection, Vector3.down * length, Color.black);
+			Debug.DrawRay(stepVec, Vector3.down * length, Color.yellow);
+		}
+		if (Physics.Raycast(stepVec, Vector3.down, out RaycastHit stepHit, length))
+		{
+			Debug.DrawRay(stepHit.point, Vector3.down * length, Color.magenta);
+			if (stepHit.point.y - transform.position.y <= maxStepHeight)
+			{
+				if (finalSpeed > 0f && !isJumping)
+				{
+					if (groundDistance < pGroundDistance + maxStepHeight)
+						groundDistance = pGroundDistance + maxStepHeight;
+					transform.position = new Vector3(transform.position.x, stepHit.point.y, transform.position.z);
+					// rigidBody.AddForce(Vector3.up * Mathf.Sqrt(-2f * jumpHeight / gravity) * (maxStepHeight + (moveVector.magnitude / 240f)), ForceMode.Impulse);
+				}
+			} else
+			{
+				rigidBody.AddForce(new Vector3(0, gravity, 0), ForceMode.Impulse);
+			}
+		} else {
+			if (groundDistance != pGroundDistance)
+				groundDistance = pGroundDistance;
+		}
+	}
 
 	bool OnSlope()
 	{

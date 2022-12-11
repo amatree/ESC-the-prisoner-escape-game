@@ -18,9 +18,9 @@ public class CharacterAnimationHandle : MonoBehaviour
 	public string slowWalkingSpeedMultiplierParameterName = "slowWalkingSpeedMultiplier";
 	public float slowWalkingSpeedMultiplier = 1.0f;
 	public string walkingSpeedMultiplierParameterName = "walkingSpeedMultiplier";
-	public float walkingSpeedMultiplier = 3.0f;
+	public float walkingSpeedMultiplier = 2.0f;
 	public string runningSpeedMultiplierParameterName = "runningSpeedMultiplier";
-	public float runningSpeedMultiplier = 2.0f;
+	public float runningSpeedMultiplier = 1.5f;
 	public AnimationCurve jumpSpeedVSHeight;
 	public PlayerController playerController;
 
