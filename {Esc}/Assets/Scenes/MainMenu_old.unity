@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.005655099
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 11345770}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 0.005655099}
+  m_IndirectSpecularColor: {r: 0.00000009632857, g: 1.4574822e-10, b: 0, a: 0.005655099}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 112000000, guid: 7ee722a4b130bf149af5b14bd0e62915, type: 2}
-  m_LightingSettings: {fileID: 4890085278179872738, guid: bb820da98e56cf246a126cac25065281, type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: e33a10e3d06987240aee3ee99eaabfa6, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -14526,7 +14526,12 @@ MonoBehaviour:
   mainDataFile: 
   gameDataManager:
     audioVolume: 0
+    SFXVolume: 0
     mouseSensitivity: 0
+    crossHairSize: 0
+  playerController: {fileID: 0}
+  characterFootstep: {fileID: 0}
+  hudSettings: {fileID: 0}
 --- !u!1 &943246583
 GameObject:
   m_ObjectHideFlags: 0
@@ -14647,7 +14652,9 @@ MonoBehaviour:
   gameConfiguration: {fileID: 940529166}
   gameDataManager:
     audioVolume: 0
+    SFXVolume: 0
     mouseSensitivity: 0
+    crossHairSize: 0
   audioSlider: {fileID: 943246585}
   valueText: {fileID: 461510423}
 --- !u!1001 &947830766
@@ -24404,7 +24411,9 @@ MonoBehaviour:
   gameConfiguration: {fileID: 940529166}
   gameDataManager:
     audioVolume: 0
+    SFXVolume: 0
     mouseSensitivity: 0
+    crossHairSize: 0
   mouseSensitivitySlider: {fileID: 1637051989}
   valueText: {fileID: 2092843878}
 --- !u!1 &1637682261 stripped

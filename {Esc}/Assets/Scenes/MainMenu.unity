@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.005655099
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 11345770}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 0.005655099}
+  m_IndirectSpecularColor: {r: 0.00000009632857, g: 1.4574822e-10, b: 0, a: 0.005655099}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -30087,6 +30087,38 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 701832259, guid: db3dc989082d8354f9688c4a4353e399, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1687980733, guid: db3dc989082d8354f9688c4a4353e399, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1098991510743050271, guid: db3dc989082d8354f9688c4a4353e399, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1098991510743050271, guid: db3dc989082d8354f9688c4a4353e399, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1098991510743050271, guid: db3dc989082d8354f9688c4a4353e399, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2677080406580860615, guid: db3dc989082d8354f9688c4a4353e399, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2677080406580860615, guid: db3dc989082d8354f9688c4a4353e399, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2677080406580860615, guid: db3dc989082d8354f9688c4a4353e399, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2677080406695337606, guid: db3dc989082d8354f9688c4a4353e399, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -30095,9 +30127,37 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: SetActive
       objectReference: {fileID: 0}
+    - target: {fileID: 2677080406903657938, guid: db3dc989082d8354f9688c4a4353e399, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2677080406903657938, guid: db3dc989082d8354f9688c4a4353e399, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2677080407582554250, guid: db3dc989082d8354f9688c4a4353e399, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2677080407582554250, guid: db3dc989082d8354f9688c4a4353e399, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2677080407598849610, guid: db3dc989082d8354f9688c4a4353e399, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2677080407707790931, guid: db3dc989082d8354f9688c4a4353e399, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2677080407707790931, guid: db3dc989082d8354f9688c4a4353e399, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2677080407707790931, guid: db3dc989082d8354f9688c4a4353e399, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2677080407957241217, guid: db3dc989082d8354f9688c4a4353e399, type: 3}
       propertyPath: m_Pivot.x
@@ -30190,6 +30250,14 @@ PrefabInstance:
     - target: {fileID: 2677080407957241229, guid: db3dc989082d8354f9688c4a4353e399, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7555948043130123409, guid: db3dc989082d8354f9688c4a4353e399, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7555948043130123409, guid: db3dc989082d8354f9688c4a4353e399, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db3dc989082d8354f9688c4a4353e399, type: 3}
