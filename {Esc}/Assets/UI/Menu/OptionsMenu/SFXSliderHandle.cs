@@ -13,22 +13,48 @@ public class SFXSliderHandle : MonoBehaviour
     [Header("UI")]
     public Slider SFXSlider;
     public TMP_Text valueText;
+	
+	[Header("Previous Data")]
+	[ReadOnly] public float prevValue;
+	[ReadOnly] public bool onOptionsGUI = false;
 
     // Start is called before the first frame update
     void Start()
     {
 		if (gameConfiguration is null)
-			gameConfiguration = GameObject.FindObjectOfType<GameConfiguration>();
+			gameConfiguration = GameObject.FindGameObjectWithTag("GameConfiguration").GetComponent<GameConfiguration>();
 
         gameDataManager = gameConfiguration.gameDataManager;
         SFXSlider.value = gameDataManager.SFXVolume;
-        valueText.text = "SFX: " + SFXSlider.value.ToString("F1");
+        valueText.text = "SFX: " + SFXSlider.value.ToString("F2");
     }
 
-    public void SaveData()
-    {
+	void OnGUI()
+	{
+		if (!onOptionsGUI)
+		{
+			onOptionsGUI = true;
+			prevValue = SFXSlider.value;
+		}
+	}
+
+	public void Revert()
+	{
+        gameDataManager.SFXVolume = prevValue;
+        SFXSlider.value = gameDataManager.SFXVolume;
+        valueText.text = "SFX: " + prevValue.ToString("F2");
+		onOptionsGUI = false;
+	}
+
+	public void Save()
+	{
         gameDataManager.SFXVolume = SFXSlider.value;
-        valueText.text = "SFX: " + SFXSlider.value.ToString("F1");
         gameDataManager.Save();
+		onOptionsGUI = false;
+	}
+
+    public void UpdateSliderText()
+    {
+        valueText.text = "SFX: " + SFXSlider.value.ToString("F2");
     }
 }

@@ -28,6 +28,7 @@ public class GameConfiguration : MonoBehaviour
 			characterFootstep = GameObject.FindObjectOfType<CharacterFootstep>();
 		if (hudSettings is null)
 			hudSettings = GameObject.FindObjectOfType<HUDSettings>();
+        UpdateSettings();
 		
     }
 
@@ -51,6 +52,10 @@ public class GameConfiguration : MonoBehaviour
         {
             playerController.audioSource.volume = gameDataManager.audioVolume;
             playerController.mouseSensitivity = gameDataManager.mouseSensitivity;
+
+			playerController.slowWalkKey = gameDataManager.slowWalkKey;
+			playerController.jumpKey = gameDataManager.jumpKey;
+			playerController.sprintKey = gameDataManager.sprintKey;
         }
 		if (hudSettings is not null)
 		{

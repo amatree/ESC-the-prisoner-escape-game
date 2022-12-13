@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using SimonSays;
+using MouseToColliderDetection;
 
 public class SimonSaysHandle : MonoBehaviour
 {
@@ -106,17 +107,13 @@ public class SimonSaysHandle : MonoBehaviour
 			if (Input.GetKeyDown(accessKey) && playOnAccess)
 				PlaySequence();
 
-			Vector3 mousePos = Input.mousePosition;
-			if (Input.GetMouseButtonDown(0) && !lockingButtonSequence.isSequencePlaying)
+			RaycastHit hit = ClickToCollider.WaitForHit(playerInteraction.playerCamera);
+			if (hit.transform is not null)
 			{
-				Ray ray = playerInteraction.playerCamera.ScreenPointToRay(mousePos);
-				if (Physics.Raycast(ray, out RaycastHit hit))
+				if (hit.transform.name.EndsWith("PushButton"))
 				{
-					if (hit.transform.name.EndsWith("PushButton"))
-					{
-						SimonSaysButtonHandle btnHandle = hit.transform.GetComponent<SimonSaysButtonHandle>();
-						StartCoroutine(ButtonAnimation(btnHandle));
-					}
+					SimonSaysButtonHandle btnHandle = hit.transform.GetComponent<SimonSaysButtonHandle>();
+					StartCoroutine(ButtonAnimation(btnHandle));
 				}
 			}
 

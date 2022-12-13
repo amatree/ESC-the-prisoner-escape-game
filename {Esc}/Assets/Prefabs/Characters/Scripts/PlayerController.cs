@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     public KeyCode sprintKey = KeyCode.LeftShift;
     [Range(1f, 10f)] public float jumpHeight = 3f;
     public KeyCode jumpKey = KeyCode.Space;
-    [Tooltip("Disabled cuz it broke animation :3")] [ReadOnly] public bool enableDoubleJump = false;
+    [Tooltip("Disabled cuz it broke animation :3"), ReadOnly] public bool enableDoubleJump = false;
 
 	[Header("Slope Handling (integrated with Stair Handling)")]
 	[ReadOnly] public bool isOnSlope;
