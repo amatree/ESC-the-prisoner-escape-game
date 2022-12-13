@@ -42,8 +42,26 @@ _not in any particular order_
 - E to open doors and grab items
 
 
-## Required Packages (not included with repository) <a name="packages"/>
-- [Sci-Fi Construction Kit (Modular)](https://assetstore.unity.com/packages/3d/environments/sci-fi/sci-fi-construction-kit-modular-159280) (FREE)
+## Required Packages (all FREE) (not included with repository) <a name="packages"/>
+- From Package Manager:
+  - ProBuilder + ProGrids
+  - Visual Scipting
+  - Cinemachine
+  - TextMesh Pro
+  - Postprocessing
+  
+- From Asset Store:
+  - [Sci-Fi Construction Kit (Modular)](https://assetstore.unity.com/packages/3d/environments/sci-fi/sci-fi-construction-kit-modular-159280)
+  - [Bed & Bath Furniture Pack](https://assetstore.unity.com/packages/3d/props/furniture/bed-bath-furniture-pack-134117)
+  - [Apartment Kit](https://assetstore.unity.com/packages/3d/environments/apartment-kit-124055)
+  - [Decrepit Dungeon LITE](https://assetstore.unity.com/packages/3d/environments/dungeons/decrepit-dungeon-lite-33936)
+  - [Flashlight](https://assetstore.unity.com/packages/3d/props/electronics/flashlight-18972)
+  - [Customize Monitor Interface](https://assetstore.unity.com/packages/3d/props/electronics/customize-monitor-interface-123558)
+  - [Medieval Tavern Pack](https://assetstore.unity.com/packages/3d/props/furniture/medieval-tavern-pack-112546)
+  - [Old Military Bed](https://assetstore.unity.com/packages/3d/props/interior/old-military-bed-40205)
+  - [Polygon/Low Poly Materials - Lite](https://assetstore.unity.com/packages/2d/textures-materials/polygon-low-poly-materials-lite-231710)
+  - [RPG/FPS Game Assets for PC/Mobile (Industrial Set v3.0)](https://assetstore.unity.com/packages/3d/environments/industrial/rpg-fps-game-assets-for-pc-mobile-industrial-set-v3-0-101429)
+  - [Raw Wooden Furniture Free](https://assetstore.unity.com/packages/3d/props/furniture/raw-wooden-furniture-free-166329)
 
 
 ## Art Assets Needed <a name="art-assets"/>

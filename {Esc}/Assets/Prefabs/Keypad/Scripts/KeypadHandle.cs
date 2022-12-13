@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using System.Linq;
 using Keypad;
+using MouseToColliderDetection;
 
 public class KeypadHandle : MonoBehaviour
 {
@@ -132,19 +133,16 @@ public class KeypadHandle : MonoBehaviour
     {
         if (!isMouseButton0Hold)
         {
-            Vector3 mousePos = Input.mousePosition;
-			if (Input.GetMouseButtonDown(0))
+            
+			RaycastHit hit = ClickToCollider.WaitForHit(playerInteraction.playerCamera);
+			if (hit.transform is not null)
 			{
-				Ray ray = playerInteraction.playerCamera.ScreenPointToRay(mousePos);
-				if (Physics.Raycast(ray, out RaycastHit hit))
+				string hitName = hit.transform.name;
+				if (hitName.StartsWith("Numpad"))
 				{
-					string hitName = hit.transform.name;
-					if (hitName.StartsWith("Numpad"))
-					{
-						int key = hitName.ElementAt(hitName.Length - 1) - 48;
-						inputPasscode += key;
-                        StartCoroutine(KeySelection(key));
-					}
+					int key = hitName.ElementAt(hitName.Length - 1) - 48;
+					inputPasscode += key;
+					StartCoroutine(KeySelection(key));
 				}
 			}
 

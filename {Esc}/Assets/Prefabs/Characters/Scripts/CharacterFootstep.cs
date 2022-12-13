@@ -98,7 +98,7 @@ public class CharacterFootstep : MonoBehaviour
 				yield return null;
 			}
 
-			sfxSource.PlayOneShot(landingClip, 0.1f);
+			sfxSource.PlayOneShot(landingClip, 0.3f);
 			// print("aired and landed " + __t);
 			isInAirWithoutJumping = false;
 

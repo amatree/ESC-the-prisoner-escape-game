@@ -6,11 +6,11 @@ using UnityEngine.SceneManagement;
 public class GameConfiguration : MonoBehaviour
 {
     [ReadOnly] public string mainDataFile = "";
-    [SerializeField] [ReadOnly] public GameSettingsManager gameDataManager;
+    [ReadOnly] public GameSettingsManager gameDataManager;
 
-    [SerializeField] public PlayerController playerController;
-    [SerializeField] public CharacterFootstep characterFootstep;
-    [SerializeField] public HUDSettings hudSettings;
+    public PlayerController playerController;
+    public CharacterFootstep characterFootstep;
+    public HUDSettings hudSettings;
 
     void Awake()
     {
@@ -28,6 +28,7 @@ public class GameConfiguration : MonoBehaviour
 			characterFootstep = GameObject.FindObjectOfType<CharacterFootstep>();
 		if (hudSettings is null)
 			hudSettings = GameObject.FindObjectOfType<HUDSettings>();
+        UpdateSettings();
 		
     }
 
@@ -51,6 +52,10 @@ public class GameConfiguration : MonoBehaviour
         {
             playerController.audioSource.volume = gameDataManager.audioVolume;
             playerController.mouseSensitivity = gameDataManager.mouseSensitivity;
+
+			playerController.slowWalkKey = gameDataManager.slowWalkKey;
+			playerController.jumpKey = gameDataManager.jumpKey;
+			playerController.sprintKey = gameDataManager.sprintKey;
         }
 		if (hudSettings is not null)
 		{
@@ -59,6 +64,7 @@ public class GameConfiguration : MonoBehaviour
 		if (characterFootstep is not null)
 		{
 			characterFootstep.sfxSource.volume = gameDataManager.SFXVolume;
+			characterFootstep.audioSource.volume = gameDataManager.SFXVolume;
 		}
     }
 }

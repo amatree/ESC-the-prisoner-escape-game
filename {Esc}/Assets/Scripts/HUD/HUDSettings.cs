@@ -24,7 +24,7 @@ public class HUDSettings : MonoBehaviour
     void Start()
     {
 		if (gameConfiguration is null)
-			gameConfiguration = GameObject.FindObjectOfType<GameConfiguration>();
+			gameConfiguration = GameObject.FindGameObjectWithTag("GameConfiguration").GetComponent<GameConfiguration>();
         prevCrosshairSize = crossHairSize;
     }
 

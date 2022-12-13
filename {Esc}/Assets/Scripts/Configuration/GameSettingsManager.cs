@@ -11,6 +11,9 @@ public class GameSettingsManager
     public float SFXVolume = 0.7f;
     public float mouseSensitivity = 5.0f;
 	public float crossHairSize = 0.2f;
+	public KeyCode slowWalkKey = KeyCode.LeftControl;
+	public KeyCode sprintKey = KeyCode.LeftShift;
+	public KeyCode jumpKey = KeyCode.Space;
 
     private string dataFile;
 
@@ -35,6 +38,9 @@ public class GameSettingsManager
 		if (!float.IsNaN(newData.SFXVolume)) this.SFXVolume = newData.SFXVolume;
         if (!float.IsNaN(newData.mouseSensitivity)) this.mouseSensitivity = newData.mouseSensitivity;
 		if (!float.IsNaN(newData.crossHairSize)) this.crossHairSize = newData.crossHairSize;
+		if (newData.slowWalkKey is not KeyCode.None) this.slowWalkKey = newData.slowWalkKey;
+		if (newData.sprintKey is not KeyCode.None) this.sprintKey = newData.sprintKey;
+		if (newData.jumpKey is not KeyCode.None) this.jumpKey = newData.jumpKey;
     }
     
     public void Save()

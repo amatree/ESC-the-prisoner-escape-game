@@ -49,7 +49,7 @@ public class MenuHandler : MonoBehaviour
         }
 
 		if (gameConfiguration is null)
-			gameConfiguration = GameObject.FindObjectOfType<GameConfiguration>();
+			gameConfiguration = GameObject.FindGameObjectWithTag("GameConfiguration").GetComponent<GameConfiguration>();
 
         mainMenuUI.SetActive(false);
 
