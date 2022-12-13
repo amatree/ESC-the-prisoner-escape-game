@@ -24,9 +24,9 @@ public class ControlsHandle : MonoBehaviour
 	[ReadOnly] public KeyCode p_sprintKeyInput;
 	[ReadOnly] public KeyCode p_jumpKeyInput;
 
-
+	List<KeyCode> modifierKeys;
 	Event @event;
-	
+
     // Start is called before the first frame update
     void Start()
     {
@@ -43,13 +43,25 @@ public class ControlsHandle : MonoBehaviour
 		m_slowWalkKeyInput.text = gameDataManager.slowWalkKey.ToString();
 		m_sprintKeyInput.text = gameDataManager.sprintKey.ToString();
 		m_jumpKeyInput.text = gameDataManager.jumpKey.ToString();
+
+		c_slowWalkKeyInput = gameDataManager.slowWalkKey;
+		c_sprintKeyInput = gameDataManager.sprintKey;
+		c_jumpKeyInput = gameDataManager.jumpKey;
+
+		modifierKeys = new List<KeyCode>(){
+			KeyCode.LeftAlt, KeyCode.RightAlt,
+			KeyCode.LeftControl, KeyCode.RightControl,
+			KeyCode.LeftShift, KeyCode.RightShift,
+		};
     }
 
     // Update is called once per frame
     void Update()
     {
 		if (m_slowWalkKeyInput.isFocused || m_sprintKeyInput.isFocused || m_jumpKeyInput.isFocused)
+		{
 			WaitForKeyInput();
+		}
     }
 
 	void OnGUI()
@@ -81,29 +93,50 @@ public class ControlsHandle : MonoBehaviour
 		onOptionsGUI = false;
 	}
 
+	void GetModifierKeys()
+	{
+		foreach (KeyCode __k in modifierKeys)
+		{
+			if (Input.GetKeyUp(__k))
+			{
+				RegisterKey(__k);
+			}
+		}
+	}
+
 	void WaitForKeyInput()
 	{
 		if (@event.isKey)
 		{
 			if (@event.type == EventType.KeyUp && @event.keyCode is not KeyCode.None)
-				if (m_slowWalkKeyInput.isFocused)
-				{
-					c_slowWalkKeyInput = @event.keyCode;
-					m_slowWalkKeyInput.text = "";
-					m_slowWalkKeyInput.text = @event.keyCode.ToString();
-				}
-				else if (m_sprintKeyInput.isFocused)
-				{
-					c_sprintKeyInput = @event.keyCode;
-					m_sprintKeyInput.text = "";
-					m_sprintKeyInput.text = @event.keyCode.ToString();
-				}
-				else if (m_jumpKeyInput.isFocused)
-				{
-					c_jumpKeyInput = @event.keyCode;
-					m_jumpKeyInput.text = "";
-					m_jumpKeyInput.text = @event.keyCode.ToString();
-				}
+			{
+				RegisterKey(@event.keyCode);
+			}
+		} else if (@event.alt || @event.shift || @event.control)
+		{
+			GetModifierKeys();
+		}
+	}
+
+	void RegisterKey(KeyCode keyCode)
+	{
+		if (m_slowWalkKeyInput.isFocused)
+		{
+			c_slowWalkKeyInput = keyCode;
+			m_slowWalkKeyInput.text = "";
+			m_slowWalkKeyInput.text = keyCode.ToString();
+		}
+		else if (m_sprintKeyInput.isFocused)
+		{
+			c_sprintKeyInput = keyCode;
+			m_sprintKeyInput.text = "";
+			m_sprintKeyInput.text = keyCode.ToString();
+		}
+		else if (m_jumpKeyInput.isFocused)
+		{
+			c_jumpKeyInput = keyCode;
+			m_jumpKeyInput.text = "";
+			m_jumpKeyInput.text = keyCode.ToString();
 		}
 	}
 }
