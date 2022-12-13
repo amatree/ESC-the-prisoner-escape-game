@@ -6,11 +6,11 @@ using UnityEngine.SceneManagement;
 public class GameConfiguration : MonoBehaviour
 {
     [ReadOnly] public string mainDataFile = "";
-    [SerializeField] [ReadOnly] public GameSettingsManager gameDataManager;
+    [ReadOnly] public GameSettingsManager gameDataManager;
 
-    [SerializeField] public PlayerController playerController;
-    [SerializeField] public CharacterFootstep characterFootstep;
-    [SerializeField] public HUDSettings hudSettings;
+    public PlayerController playerController;
+    public CharacterFootstep characterFootstep;
+    public HUDSettings hudSettings;
 
     void Awake()
     {
@@ -64,6 +64,7 @@ public class GameConfiguration : MonoBehaviour
 		if (characterFootstep is not null)
 		{
 			characterFootstep.sfxSource.volume = gameDataManager.SFXVolume;
+			characterFootstep.audioSource.volume = gameDataManager.SFXVolume;
 		}
     }
 }
