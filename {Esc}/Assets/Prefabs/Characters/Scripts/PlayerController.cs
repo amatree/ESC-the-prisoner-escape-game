@@ -143,12 +143,13 @@ public class PlayerController : MonoBehaviour
 
             // position
             moveVector = Vector3.zero;
-			verticalAxis = Input.GetAxisRaw("Vertical") * finalSpeed * 1000f * Time.fixedDeltaTime;
-			horizontalAxis = Input.GetAxisRaw("Horizontal") * finalSpeed * 1000f * Time.fixedDeltaTime;
+			verticalAxis = Input.GetAxisRaw("Vertical") * finalSpeed * 1000f;
+			horizontalAxis = Input.GetAxisRaw("Horizontal") * finalSpeed * 1000f;
 			if (verticalAxis == 0 && horizontalAxis == 0)
 				finalSpeed = 0f;
 			moveVector = Vector3.ClampMagnitude(transform.right * horizontalAxis + transform.forward * verticalAxis, finalSpeed * 25f);
 			moveMagnitude = moveVector.magnitude;
+				
 
             // double jump
             // if (jumpCount > 0 && jumpCount < 2 && enableDoubleJump && !isGrounded)
@@ -175,10 +176,10 @@ public class PlayerController : MonoBehaviour
 				StartCoroutine(ToggleJump(jumpHeight + (moveVector.magnitude / 320f)));
 			}
 
-			if (isGrounded && rigidBody.velocity.magnitude != 0)
+			if (isGrounded)
 			{
                 AddForce(moveVector * accelerationMultiplier - moveVector * frictionMultiplier, ForceMode.Acceleration);
-			} else if (!isGrounded && rigidBody.velocity.magnitude != 0)
+			} else if (!isGrounded && !Mathf.Approximately(rigidBody.velocity.magnitude, 0.0f))
 			{
                 AddForce((moveVector * airAccelerationMultiplier - moveVector * airFrictionMultiplier) / -airDrag, ForceMode.Acceleration); 
 			} else if (groundDistanceChanged)
@@ -196,7 +197,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // gravity
-		if (transform.position.y > 0f) rigidBody.AddForce(new Vector3(0, gravity, 0), ForceMode.Acceleration);
+		if (!isGrounded) rigidBody.AddForce(new Vector3(0, gravity, 0), ForceMode.Acceleration);
 		
 		// if (transform.position.y < 0f) rigidBody.AddForce(new Vector3(0, -gravity, 0), ForceMode.Acceleration);
 		// if (transform.position.y < 0f) transform.position = new Vector3(transform.position.x, 0, transform.position.z);
