@@ -22,12 +22,15 @@ public class CameraStabilization : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-		Quaternion fromRot = playerCamera.transform.localRotation;
-		Quaternion toRot = Quaternion.Euler(-playerController.mouseY, 0f, 0f);
-        playerCamera.transform.localRotation = Quaternion.Slerp(fromRot, toRot, timeCount);
-		timeCount += Time.fixedDeltaTime;
+		if (playerController.hasAllControl)
+		{
+			Quaternion fromRot = playerCamera.transform.localRotation;
+			Quaternion toRot = Quaternion.Euler(-playerController.mouseY, 0f, 0f);
+			playerCamera.transform.localRotation = Quaternion.Slerp(fromRot, toRot, timeCount);
+			timeCount += Time.fixedDeltaTime;
 
-		Vector3 targetPos = headTransform.position;
-		playerCamera.transform.position = Vector3.SmoothDamp(playerCamera.transform.position, targetPos, ref velocity, smoothTime);
+			Vector3 targetPos = headTransform.position;
+			playerCamera.transform.position = Vector3.SmoothDamp(playerCamera.transform.position, targetPos, ref velocity, smoothTime);
+		}
     }
 }
