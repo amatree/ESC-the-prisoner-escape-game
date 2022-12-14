@@ -171,7 +171,7 @@ public class PlayerController : MonoBehaviour
             // }
 
 			// single jump
-			if (Input.GetKey(jumpKey) && isGrounded && !isJumping)
+			if (Input.GetKeyDown(jumpKey) && isGrounded && !isJumping)
 			{
 				StartCoroutine(ToggleJump(jumpHeight + (moveVector.magnitude / 320f)));
 			}

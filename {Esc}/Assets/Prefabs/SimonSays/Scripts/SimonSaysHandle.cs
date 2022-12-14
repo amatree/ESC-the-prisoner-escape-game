@@ -120,6 +120,7 @@ public class SimonSaysHandle : MonoBehaviour
 			if (lockingButtonSequence.Check(inputSequence))
 			{
 				// correct sequence
+				wasUnlocked = true;
 				playerController.PlaySFXOnce(correctSFX);
 				return true;
 			} else if (inputSequence.Count >= lockingButtonSequence.Sequence.Count)
