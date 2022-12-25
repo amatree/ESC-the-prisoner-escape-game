@@ -247,8 +247,8 @@ public class KeypadHandle : MonoBehaviour
         if (playSFX) 
             playerController.PlaySFXOnce(keypadSoundEffects.CorrectSFX);
         wasUnlocked = true;
-        yield return new WaitForSeconds(keypadDownTime);
-        wasUnlocked = false;
+        // yield return new WaitForSeconds(keypadDownTime);
+        // wasUnlocked = false;
         yield break;
     }
 
